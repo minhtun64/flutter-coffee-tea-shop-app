@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'screens/login/login_screen.dart';
+import 'screens/register/register_screen.dart';
 import 'utils/common_widgets/invalid_route.dart';
 import 'values/app_routes.dart';
 
@@ -22,6 +23,9 @@ class Routes {
     switch (settings.name) {
       case AppRoutes.login:
         return getRoute(widget: const LoginPage());
+
+      case AppRoutes.register:
+        return getRoute(widget: const RegisterPage());
 
       /// An invalid route. User shouldn't see this,
       /// it's for debugging purpose only.

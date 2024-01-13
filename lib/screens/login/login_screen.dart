@@ -10,10 +10,8 @@ import '../../values/app_regex.dart';
 import '../../values/app_routes.dart';
 import '../../values/app_strings.dart';
 import '../../values/app_theme.dart';
-// import 'widgets/login_button.dart';
-// import 'widgets/login_form.dart';
-import 'widgets/login_logo.dart';
-// import 'widgets/login_signup.dart';
+
+import '../../utils/common_widgets/logo_branch_label.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -82,7 +80,7 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   const GradientBackground(
                     children: [
-                      LoginLogo(),
+                      LogoBrandLabel(),
                       SizedBox(
                         height: 40,
                       ),
@@ -239,7 +237,9 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       const SizedBox(width: 4),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () => NavigationHelper.pushReplacementNamed(
+                          AppRoutes.register,
+                        ),
                         child: const Text(AppStrings.register),
                       ),
                     ],

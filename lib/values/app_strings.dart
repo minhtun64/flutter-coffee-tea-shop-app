@@ -26,4 +26,15 @@ class AppStrings {
   static const String pleaseEnterPassword = 'Hãy nhập mật khẩu';
   static const String invalidPassword =
       'Mật khẩu phải có ít nhất 8 ký tự,\nbao gồm chữ cái hoa, chữ cái thường,\nsố và ký tự đặc biệt';
+
+// REGISTER
+  static const String registrationComplete = 'Đăng ký hoàn tất!';
+
+  static const String name = 'Tên';
+  static const String pleaseEnterName = 'Hãy nhập tên';
+  static const String invalidName = 'Tên không hợp lệ';
+
+  static const String confirmPassword = 'Xác nhận mật khẩu';
+  static const String pleaseReEnterPassword = 'Hãy nhập lại mật khẩu';
+  static const String passwordNotMatched = 'Mật khẩu không khớp!';
 }
