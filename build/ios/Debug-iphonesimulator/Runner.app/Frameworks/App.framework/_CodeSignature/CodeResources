@@ -10,19 +10,63 @@
 		</data>
 		<key>flutter_assets/AssetManifest.bin</key>
 		<data>
-		ME0cAg6cl/bTZmwXEVgMugDccUI=
+		0zZKT+q8o7MBKPKlsH4+dD9nubQ=
 		</data>
 		<key>flutter_assets/AssetManifest.json</key>
 		<data>
-		oG5/OGn+vw7vp/nu5DUDoZJ4nFc=
+		J5ksBNFkJMLgmj6ZJPo4mBszoNo=
 		</data>
 		<key>flutter_assets/FontManifest.json</key>
 		<data>
-		vKJkVIcw+LGHFnKJGwrQwCREv68=
+		6ER9bYbgAqlKExHD/ypAKe/dWxo=
 		</data>
 		<key>flutter_assets/NOTICES.Z</key>
 		<data>
-		VznX3L93pC3rTuRSeuDmzihiakY=
+		jRK9ns8S+xZ6wFQDRLT1sO2j75w=
+		</data>
+		<key>flutter_assets/assets/fonts/Lexend/static/Lexend-Black.ttf</key>
+		<data>
+		YP5evRRO7+sZdBGkFdzaxx32nm4=
+		</data>
+		<key>flutter_assets/assets/fonts/Lexend/static/Lexend-Bold.ttf</key>
+		<data>
+		ytE+YZE6JzbC7IbTMOjZY2fRjcQ=
+		</data>
+		<key>flutter_assets/assets/fonts/Lexend/static/Lexend-ExtraBold.ttf</key>
+		<data>
+		Dvmsl0qb1CH77MPn+bzCoWD02vg=
+		</data>
+		<key>flutter_assets/assets/fonts/Lexend/static/Lexend-ExtraLight.ttf</key>
+		<data>
+		5Kh+RzS16MW5yhPHHHj5VyBofT4=
+		</data>
+		<key>flutter_assets/assets/fonts/Lexend/static/Lexend-Light.ttf</key>
+		<data>
+		15O/97iPxCpqbtkCpPwkhDUGrgs=
+		</data>
+		<key>flutter_assets/assets/fonts/Lexend/static/Lexend-Medium.ttf</key>
+		<data>
+		IYycl5xoBvwMn3c8LwHNz8Yntjw=
+		</data>
+		<key>flutter_assets/assets/fonts/Lexend/static/Lexend-Regular.ttf</key>
+		<data>
+		CvEyNZcDS8z+i4xisN3ismmuDC4=
+		</data>
+		<key>flutter_assets/assets/fonts/Lexend/static/Lexend-SemiBold.ttf</key>
+		<data>
+		yZ064ePx95FpBP4YlU+wd1vJZZA=
+		</data>
+		<key>flutter_assets/assets/fonts/Lexend/static/Lexend-Thin.ttf</key>
+		<data>
+		dIaLcPuL2myy/CCCSvnGchXZBzg=
+		</data>
+		<key>flutter_assets/assets/logo/brilicoffee_logo.png</key>
+		<data>
+		zma3269qswfMXHAH0nrEYkpBzN8=
+		</data>
+		<key>flutter_assets/assets/logo/brilicoffee_logo_outline.png</key>
+		<data>
+		VfGij94i8KATxtCtViuLO0SIuyM=
 		</data>
 		<key>flutter_assets/fonts/MaterialIcons-Regular.otf</key>
 		<data>
@@ -34,7 +78,7 @@
 		</data>
 		<key>flutter_assets/kernel_blob.bin</key>
 		<data>
-		UKd2UKBSbsIsO8SH0GOk4rA9a9A=
+		wYSdq0IDzQ7xR1JXfPRaPNVAPIY=
 		</data>
 		<key>flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<data>
@@ -55,28 +99,105 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			AK9VrT1vIYmP534P8JLRoc2lLJQbaGDpko1FyK+MCV0=
+			pK6OyYAaaSGJ3q7ycYibb/qcVWZYv4ktMvNHjLBlpy8=
 			</data>
 		</dict>
 		<key>flutter_assets/AssetManifest.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Sps95+7JukayebvM0TLjL1LW1VXXndpKp/O8tOm9ZR8=
+			DtF06tQG/G4/8eWZZo0nQ4sVWWN/7Coghuij7biWR0o=
 			</data>
 		</dict>
 		<key>flutter_assets/FontManifest.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			zX4DZFvESy3Ue3y2JvUcTsv1Whl6t3JBYotHrBZfviE=
+			dRJFMSyDNyMfIYzYFhUmwQHVsEcpU9dT3mwy8u6J4QQ=
 			</data>
 		</dict>
 		<key>flutter_assets/NOTICES.Z</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			eus3p+jbEZdoCovP11hDY7hDqvx4xNOHF+zkjp1BRhY=
+			uCiveuQA80iyQpjyFHAPXTEBJ4tXb4o/j3Mii0i7sJc=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/fonts/Lexend/static/Lexend-Black.ttf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			6g/mUmNqSWVLmX7DXRPNxT37oCoTW0rvWPtP05uhz5k=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/fonts/Lexend/static/Lexend-Bold.ttf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			s9tBcPPKW1F96c0UIA0VL9FELDg2tiGSi+kzSUFJQaw=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/fonts/Lexend/static/Lexend-ExtraBold.ttf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			kuXU3U32FyLrLnZfAatRVZzxfVCO42GjDPNcVKkShm0=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/fonts/Lexend/static/Lexend-ExtraLight.ttf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			enj1neRZQVFuSadMQUgcaxZ0siuQwjaQTU/Hrhj+wR0=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/fonts/Lexend/static/Lexend-Light.ttf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			MACFWXCBQ+FT3CMfuB0CNG3YQrpECfQlFtPNqCZn2Uo=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/fonts/Lexend/static/Lexend-Medium.ttf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			OngDxFZSlhR2zLy6qsaDgA3T6TL2RDVgw77ixrdHZKg=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/fonts/Lexend/static/Lexend-Regular.ttf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			tufKfpMeqGh6v0RJ17V5L8TDaLGClEFKEGUT8aauTd4=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/fonts/Lexend/static/Lexend-SemiBold.ttf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			N41yGrMLwL9STgotPZMn4M5T0QUWm5xn2tLWdExJu5A=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/fonts/Lexend/static/Lexend-Thin.ttf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			qMyBRfPi+rGd/OQtw+ty/vlD3EO4J7LCqFPHsCzTzXM=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/logo/brilicoffee_logo.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			sUncnRCKURQKTnmkU2HQ3UE3OwVD7I4lFRGKNuPhjzk=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/logo/brilicoffee_logo_outline.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			d/BE4Q9apQ1YagAxDWg4StH1PGdCCMpL5S7SkPPJhIA=
 			</data>
 		</dict>
 		<key>flutter_assets/fonts/MaterialIcons-Regular.otf</key>
@@ -97,7 +218,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ckiLVgD9gye3BjgokXtFwILocwRz14U1iPpQHQRNKfY=
+			qLAuT7Lw1rpUFFjESFg7eUECjNWRjpDylXB98Ef5u8M=
 			</data>
 		</dict>
 		<key>flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
