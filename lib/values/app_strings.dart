@@ -43,4 +43,7 @@ class AppStrings {
   static const String order = 'Đặt hàng';
   static const String notifications = 'Thông báo';
   static const String account = 'Tài khoản';
+
+//HOME
+  static const String deliveryTo = 'Giao hàng đến';
 }

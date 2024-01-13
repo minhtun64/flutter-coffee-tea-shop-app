@@ -86,7 +86,7 @@ class _NavigationState extends State<BottomTabsNavigation> {
       ),
       body: <Widget>[
         /// Home page
-        const HomePage(),
+        HomePage(),
 
         /// Order page
         const OrderPage(),
