@@ -204,7 +204,7 @@ class _LoginPageState extends State<LoginPage> {
                                 child: OutlinedButton.icon(
                                   onPressed: () {},
                                   icon: SvgPicture.asset(Vectors.google,
-                                      width: 14),
+                                      width: 24),
                                   label: const Text(
                                     AppStrings.google,
                                     style: TextStyle(color: Colors.black),
@@ -216,7 +216,7 @@ class _LoginPageState extends State<LoginPage> {
                                 child: OutlinedButton.icon(
                                   onPressed: () {},
                                   icon: SvgPicture.asset(Vectors.facebook,
-                                      width: 14),
+                                      width: 24),
                                   label: const Text(
                                     AppStrings.facebook,
                                     style: TextStyle(color: Colors.black),
