@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../values/app_theme.dart';
+import '../../values/app_theme.dart';
 
-class LoginLogo extends StatelessWidget {
-  const LoginLogo({super.key});
+class LogoBrandLabel extends StatelessWidget {
+  const LogoBrandLabel({super.key});
 
   @override
   Widget build(BuildContext context) {
