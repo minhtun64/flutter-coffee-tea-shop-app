@@ -37,4 +37,10 @@ class AppStrings {
   static const String confirmPassword = 'Xác nhận mật khẩu';
   static const String pleaseReEnterPassword = 'Hãy nhập lại mật khẩu';
   static const String passwordNotMatched = 'Mật khẩu không khớp!';
+
+// BOTTOM TABS NAVIGATION
+  static const String home = 'Trang chủ';
+  static const String order = 'Đặt hàng';
+  static const String notifications = 'Thông báo';
+  static const String account = 'Tài khoản';
 }

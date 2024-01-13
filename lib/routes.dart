@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'screens/bottomTabsNavigation/bottomTabsNavigation.dart';
 import 'screens/login/login_screen.dart';
 import 'screens/register/register_screen.dart';
 import 'utils/common_widgets/invalid_route.dart';
@@ -26,6 +27,9 @@ class Routes {
 
       case AppRoutes.register:
         return getRoute(widget: const RegisterPage());
+
+      case AppRoutes.navigate_home:
+        return getRoute(widget: BottomTabsNavigation(currentPageIndex: 0));
 
       /// An invalid route. User shouldn't see this,
       /// it's for debugging purpose only.
