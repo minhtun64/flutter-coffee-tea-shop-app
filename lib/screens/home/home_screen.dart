@@ -1,9 +1,18 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 import '../../values/app_colors.dart';
 import '../../values/app_strings.dart';
 import '../../values/app_theme.dart';
 import 'widgets/home_delivery_address_widget.dart';
+
+final List<String> sliderBanners = [
+  'assets/images/banners/slider_banners/slider_banner_1.jpeg',
+  'assets/images/banners/slider_banners/slider_banner_2.jpeg',
+  'assets/images/banners/slider_banners/slider_banner_3.jpeg',
+  'assets/images/banners/slider_banners/slider_banner_4.jpeg',
+  'assets/images/banners/slider_banners/slider_banner_5.jpeg',
+];
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -57,9 +66,43 @@ class HomePage extends StatelessWidget {
           width: double.infinity,
           color: AppColors.scaffoldBackgroundColor,
           padding: const EdgeInsetsDirectional.all(24),
-          child: const Column(
+          child: Column(
             children: [
-              HomeDeliveryAddressWidget(),
+              const HomeDeliveryAddressWidget(),
+              const SizedBox(
+                height: 24,
+              ),
+              CarouselSlider(
+                options: CarouselOptions(
+                  autoPlay: true,
+                  autoPlayInterval: const Duration(seconds: 3),
+                  autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                  autoPlayCurve: Curves.fastOutSlowIn,
+                  pauseAutoPlayOnTouch: true,
+                  aspectRatio: 16 / 9, // Tỉ lệ khung hình
+                  viewportFraction: 1,
+                  // enableInfiniteScroll: true,
+                ),
+                items: sliderBanners.map((image) {
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return Container(
+                        width: MediaQuery.of(context).size.width,
+                        // width: double.infinity,
+                        margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                        decoration: BoxDecoration(
+                          // color: Colors.amber,
+                          borderRadius: BorderRadius.circular(8.0),
+                          image: DecorationImage(
+                            image: AssetImage(image),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                }).toList(),
+              ),
             ],
           ),
         ),

@@ -37,6 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_lints: ^2.0.0
   flutter_svg: ^0.22.0
+  carousel_slider: ^4.0.0
+
 
 
 dev_dependencies:
@@ -69,7 +71,7 @@ flutter:
   - assets/images/icons/
   - assets/logo/
   - assets/images/vectors/
-
+  - assets/images/banners/slider_banners/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
