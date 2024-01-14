@@ -4,7 +4,7 @@ class ProductItem {
   final String price;
   final String image;
   final String type;
-  String salePrice;
+  String oriPrice;
 
   ProductItem({
     required this.id,
@@ -12,6 +12,6 @@ class ProductItem {
     required this.price,
     required this.image,
     required this.type,
-    this.salePrice = '',
+    this.oriPrice = '',
   });
 }

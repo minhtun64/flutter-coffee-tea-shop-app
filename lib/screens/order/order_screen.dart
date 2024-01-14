@@ -36,18 +36,18 @@ final List<ProductItem> productItems = [
   ProductItem(
     id: '3',
     name: 'Bạc Sỉu',
-    price: '29000',
+    price: '22000',
     image: 'assets/images/products/coffee/coffee_3_1.jpeg',
     type: 'coffee',
-    salePrice: '22000',
+    oriPrice: '29000',
   ),
   ProductItem(
     id: '4',
     name: 'Caramel Macchiato Đá',
-    price: '55000',
+    price: '48000',
     image: 'assets/images/products/coffee/coffee_4_1.jpeg',
     type: 'coffee',
-    salePrice: '39000',
+    oriPrice: '55000',
   ),
   ProductItem(
     id: '5',
@@ -80,10 +80,10 @@ final List<ProductItem> productItems = [
   ProductItem(
     id: '5',
     name: 'Latte Nóng',
-    price: '55000',
+    price: '49000',
     image: 'assets/images/products/coffee/coffee_5_1.jpeg',
     type: 'coffee',
-    salePrice: '49000',
+    oriPrice: '55000',
   ),
   ProductItem(
     id: '5',
