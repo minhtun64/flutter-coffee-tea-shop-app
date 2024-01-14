@@ -39,6 +39,7 @@ final List<ProductItem> productItems = [
     price: '29000',
     image: 'assets/images/products/coffee/coffee_3_1.jpeg',
     type: 'coffee',
+    salePrice: '22000',
   ),
   ProductItem(
     id: '4',
@@ -46,6 +47,7 @@ final List<ProductItem> productItems = [
     price: '55000',
     image: 'assets/images/products/coffee/coffee_4_1.jpeg',
     type: 'coffee',
+    salePrice: '39000',
   ),
   ProductItem(
     id: '5',
@@ -81,6 +83,7 @@ final List<ProductItem> productItems = [
     price: '55000',
     image: 'assets/images/products/coffee/coffee_5_1.jpeg',
     type: 'coffee',
+    salePrice: '49000',
   ),
   ProductItem(
     id: '5',

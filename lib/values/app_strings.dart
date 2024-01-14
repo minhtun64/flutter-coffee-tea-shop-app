@@ -49,6 +49,8 @@ class AppStrings {
   static const String bestSeller = 'Bestseller';
   static const String promotion = 'Khuyến mãi';
   static const String store = 'Cửa hàng';
+  static const String specialOffer = 'ƯU ĐÃI ĐẶC BIỆT';
+  static const String viewAll = 'Xem tất cả';
 
 // ORDER
   static const String searchProduct = 'Tìm sản phẩm';

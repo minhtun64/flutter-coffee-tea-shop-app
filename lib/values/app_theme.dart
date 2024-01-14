@@ -142,6 +142,13 @@ class AppTheme {
     fontSize: 14,
   );
 
+  static const TextStyle body_Small_Thin_Black_LineThrough = TextStyle(
+    fontFamily: 'Lexend',
+    color: Colors.black,
+    fontSize: 14,
+    decoration: TextDecoration.lineThrough,
+  );
+
   static const TextStyle body_Medium_Bold_Black = TextStyle(
     fontFamily: 'Lexend',
     color: Colors.black,

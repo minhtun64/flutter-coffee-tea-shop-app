@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 
+import '../../modals/items.dart';
+import '../../utils/common_widgets/product_card.dart';
 import '../../values/app_colors.dart';
+import '../../values/app_strings.dart';
 import '../../values/app_theme.dart';
 import 'widgets/home_delivery_address_widget.dart';
 import 'widgets/home_options.dart';
 
 import 'widgets/home_slider_widget.dart';
+import 'widgets/home_special_offer.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -70,6 +74,10 @@ class HomePage extends StatelessWidget {
                 height: 24,
               ),
               HomeOptions(),
+              SizedBox(
+                height: 24,
+              ),
+              HomeSpecialOffer(),
             ],
           ),
         ),

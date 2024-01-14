@@ -61,11 +61,31 @@ class ProductCard extends StatelessWidget {
                 const SizedBox(
                   height: 4,
                 ),
-                Text(
-                  '${priceFormat.format(int.parse(productItem.price))}đ',
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: AppTheme.body_Small_Bold_Red,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    if (productItem.salePrice != '') ...[
+                      Text(
+                        '${priceFormat.format(int.parse(productItem.salePrice))}đ',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: AppTheme.body_Small_Bold_Red,
+                      ),
+                      Text(
+                        '${priceFormat.format(int.parse(productItem.price))}đ',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: AppTheme.body_Small_Thin_Black_LineThrough,
+                      ),
+                    ] else ...[
+                      Text(
+                        '${priceFormat.format(int.parse(productItem.price))}đ',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: AppTheme.body_Small_Bold_Red,
+                      ),
+                    ]
+                  ],
                 ),
               ],
             ),
