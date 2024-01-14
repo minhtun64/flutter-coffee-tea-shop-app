@@ -46,7 +46,7 @@
 		</data>
 		<key>Frameworks/App.framework/App</key>
 		<data>
-		thLdaczY60eDyN085wrIDQVlAGI=
+		nCEaabazOOZ5W1z3n1VbC3B3cHA=
 		</data>
 		<key>Frameworks/App.framework/Info.plist</key>
 		<data>
@@ -54,15 +54,15 @@
 		</data>
 		<key>Frameworks/App.framework/_CodeSignature/CodeResources</key>
 		<data>
-		UFgmjR1VLhmigC2MkeKP7XSnadM=
+		eeEWJzHjwhbCMdS/hNkBQn+S7EQ=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.bin</key>
 		<data>
-		z1LSxRX6S3R+RHiRtZgdX9Nrd1M=
+		VumaaUN2ocJ/Yutg3vR5/N4mlF0=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.json</key>
 		<data>
-		hTYaL2tB1LHFbGi0QPUEcv3rIqk=
+		BezzpVHnZsNCZz8/aWTXseq1bfA=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/FontManifest.json</key>
 		<data>
@@ -108,6 +108,14 @@
 		<data>
 		dIaLcPuL2myy/CCCSvnGchXZBzg=
 		</data>
+		<key>Frameworks/App.framework/flutter_assets/assets/images/banners/product_banners/product_banner_1.jpeg</key>
+		<data>
+		kKU53frlbwmBBYtX8Dc+ILXZ6kg=
+		</data>
+		<key>Frameworks/App.framework/flutter_assets/assets/images/banners/sale_off_banners/sale_off_banner_1.jpeg</key>
+		<data>
+		0kPrgAPtjVJX3oFO+noemngA794=
+		</data>
 		<key>Frameworks/App.framework/flutter_assets/assets/images/banners/slider_banners/slider_banner_1.jpeg</key>
 		<data>
 		Fx4ToD4+r+5RmAXrWggMf8OqOFg=
@@ -127,6 +135,26 @@
 		<key>Frameworks/App.framework/flutter_assets/assets/images/banners/slider_banners/slider_banner_5.jpeg</key>
 		<data>
 		tiSqiy9UawMD5TC36ntwyxnXNmQ=
+		</data>
+		<key>Frameworks/App.framework/flutter_assets/assets/images/products/coffee/coffee_1_1.jpeg</key>
+		<data>
+		MWBjzseDbILLm+IgmLXgKdmNzE0=
+		</data>
+		<key>Frameworks/App.framework/flutter_assets/assets/images/products/coffee/coffee_2_1.jpeg</key>
+		<data>
+		ZvkvX2yq/+jyYM3czwWg3Tj6FAA=
+		</data>
+		<key>Frameworks/App.framework/flutter_assets/assets/images/products/coffee/coffee_3_1.jpeg</key>
+		<data>
+		NZuH/kA42BNEgOgSpUUvCWNY5xk=
+		</data>
+		<key>Frameworks/App.framework/flutter_assets/assets/images/products/coffee/coffee_4_1.jpeg</key>
+		<data>
+		jTJO697IZYdYElcCcyyKdtsWtM4=
+		</data>
+		<key>Frameworks/App.framework/flutter_assets/assets/images/products/coffee/coffee_5_1.jpeg</key>
+		<data>
+		E4jBqVGteONK1xeq+0a93GYh6Lo=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/assets/images/vectors/facebook.svg</key>
 		<data>
@@ -154,7 +182,7 @@
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/kernel_blob.bin</key>
 		<data>
-		ON8Cy2SWhwvhxHeAtkFPMAJxcVo=
+		5OEJrB2KMAaZTGXx+839rxwa2po=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<data>
@@ -337,7 +365,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			jIl/yD6sk++y/frSH3HquGMKGLbfWCQ74/B5Q4Eso5k=
+			QdTF26Z9XR8iDTn5uzLhsM5JZ1fQUOUFl1fhmrbiEMM=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/Info.plist</key>
@@ -351,21 +379,21 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ziS3l8JHL1ucC4RnaJtMyGtSWP84iTsefrFnSzqUJe4=
+			3/lXVipPymVlECGxUsw5LvOZ39XlrBm0YfGNDKoD9IA=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.bin</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			mVSlkxi542UGlQTElUd0PgT1BXL+BvgfDGKwEh+FGnQ=
+			CFvRbaZkhLdgqrx2Pd7ivVGq7YAFvJpvGIFyeEM5MQc=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ycyXRNHpT6hT55/qG0eQ/0w8x7vNWP1gInzmDUggdP8=
+			M4A41n3UOUF7NniTI5N+JZ62a93oP+c2uGQCJGLAK4w=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/FontManifest.json</key>
@@ -445,6 +473,20 @@
 			qMyBRfPi+rGd/OQtw+ty/vlD3EO4J7LCqFPHsCzTzXM=
 			</data>
 		</dict>
+		<key>Frameworks/App.framework/flutter_assets/assets/images/banners/product_banners/product_banner_1.jpeg</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			en7oFv6lWcRZz62jWAaY8FR7ZZTPStdl4hTe3grSwWQ=
+			</data>
+		</dict>
+		<key>Frameworks/App.framework/flutter_assets/assets/images/banners/sale_off_banners/sale_off_banner_1.jpeg</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			di7uyHAt4KqIIrmioTY9rTDkxfPXGTwfPTw+SUl6teE=
+			</data>
+		</dict>
 		<key>Frameworks/App.framework/flutter_assets/assets/images/banners/slider_banners/slider_banner_1.jpeg</key>
 		<dict>
 			<key>hash2</key>
@@ -478,6 +520,41 @@
 			<key>hash2</key>
 			<data>
 			xtAxd8iH9wFN8hYkEc9IR67H8ZbnGbr3tLVefxarS4s=
+			</data>
+		</dict>
+		<key>Frameworks/App.framework/flutter_assets/assets/images/products/coffee/coffee_1_1.jpeg</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			sXMi9semqRl54V7EUQfAabSA4ElFyEe50RkeDf7OTEg=
+			</data>
+		</dict>
+		<key>Frameworks/App.framework/flutter_assets/assets/images/products/coffee/coffee_2_1.jpeg</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			F+zDe7ZVBHK0cly8FXe8Vp0B71EU5hfvNU547uAO6Mw=
+			</data>
+		</dict>
+		<key>Frameworks/App.framework/flutter_assets/assets/images/products/coffee/coffee_3_1.jpeg</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			1+Lt7kzo9bjVR6vGv74jTs6kWYOASnX3iVW1Zp0y7Mw=
+			</data>
+		</dict>
+		<key>Frameworks/App.framework/flutter_assets/assets/images/products/coffee/coffee_4_1.jpeg</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			2AUHCRlsCNx93WpvEUoJpTM33xq5+R9t4MnBgAEv95w=
+			</data>
+		</dict>
+		<key>Frameworks/App.framework/flutter_assets/assets/images/products/coffee/coffee_5_1.jpeg</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			zljl++1YbvhZR+63dvAQDkhUcGL+9R0BRv57fh7SHBQ=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/assets/images/vectors/facebook.svg</key>
@@ -526,7 +603,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			6ZZCwGO7UW9VlPJ/32HCJlr9+duvt5nhq797pBJqdlA=
+			nyaW6ZeAJpxn3PE65RIZFFp4iRyR0sDK14qS+CXD6fY=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>

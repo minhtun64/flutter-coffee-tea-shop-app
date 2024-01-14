@@ -5,14 +5,16 @@ import '../../../values/app_colors.dart';
 import '../../../values/app_theme.dart';
 import '../order_screen.dart';
 import '../../../utils/common_widgets/product_card.dart';
+import 'order_sort_filter_modal.dart';
 
 // ignore: must_be_immutable
 class OrderProductTab extends StatefulWidget {
   final String currentProductType;
   final Function(List<ProductItem>) onSearchResultChanged;
   final bool isSearchTextNotEmpty;
+  bool isSortFilterApplied = false;
 
-  List<ProductItem> filteredPriceItems = [];
+  List<ProductItem> filteredItems = [];
 
   OrderProductTab({
     Key? key,
@@ -26,6 +28,8 @@ class OrderProductTab extends StatefulWidget {
 }
 
 class _OrderProductTabState extends State<OrderProductTab> {
+  final GlobalKey _scrollViewKey = GlobalKey();
+
   List<ProductItem> filterProductByType(
       List<ProductItem> allProducts, String type) {
     return allProducts.where((product) => product.type == type).toList();
@@ -33,16 +37,25 @@ class _OrderProductTabState extends State<OrderProductTab> {
 
   @override
   Widget build(BuildContext context) {
-    List<ProductItem> items = filterProductByType(
-      (searchResult.isNotEmpty || widget.isSearchTextNotEmpty)
-          ? searchResult
-          : productItems,
-      widget.currentProductType,
-    );
+    List<ProductItem> items = [];
+    if (!widget.isSortFilterApplied) {
+      items = filterProductByType(
+        (searchResult.isNotEmpty || widget.isSearchTextNotEmpty)
+            ? searchResult
+            : productItems,
+        widget.currentProductType,
+      );
+    } else {
+      items = filterProductByType(
+        widget.filteredItems,
+        widget.currentProductType,
+      );
+    }
     return Scaffold(
       body: Container(
         color: AppColors.scaffoldBackgroundColor,
         child: CustomScrollView(
+          key: _scrollViewKey,
           slivers: [
             SliverAppBar(
               automaticallyImplyLeading: false,
@@ -86,7 +99,29 @@ class _OrderProductTabState extends State<OrderProductTab> {
                         Icons.filter_alt_outlined,
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      showModalBottomSheet(
+                          shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(12))),
+                          isScrollControlled: true,
+                          // backgroundColor: Colors.grey[300],
+                          context: context,
+                          builder: (BuildContext context) {
+                            return OrderSortFilterModal(
+                              productItems: searchResult.isNotEmpty
+                                  ? searchResult
+                                  : productItems,
+                              onFilterApplied: (filteredItems) {
+                                setState(() {
+                                  widget.filteredItems = filteredItems;
+                                  widget.isSortFilterApplied = true;
+                                  _scrollToTop();
+                                });
+                              },
+                            );
+                          });
+                    },
                   )
                 ],
               ),
@@ -101,7 +136,7 @@ class _OrderProductTabState extends State<OrderProductTab> {
               ),
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
-                  if (items.isNotEmpty) {
+                  if (items.isNotEmpty || widget.isSearchTextNotEmpty) {
                     final productItem = items[index];
                     return ProductCard(productItem: productItem);
                   } else {
@@ -115,5 +150,17 @@ class _OrderProductTabState extends State<OrderProductTab> {
         ),
       ),
     );
+  }
+
+  void _scrollToTop() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // Cuộn lên trên cùng sau khi frame được vẽ xong
+      Scrollable.ensureVisible(
+        context,
+        alignment:
+            0.0, // 0.0 là đầu trên của widget sẽ được đưa ra đầu trên màn hình
+        duration: const Duration(milliseconds: 500),
+      );
+    });
   }
 }
