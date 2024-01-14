@@ -9,12 +9,16 @@ import '../../../utils/common_widgets/product_card.dart';
 // ignore: must_be_immutable
 class OrderProductTab extends StatefulWidget {
   final String currentProductType;
+  final Function(List<ProductItem>) onSearchResultChanged;
+  final bool isSearchTextNotEmpty;
 
   List<ProductItem> filteredPriceItems = [];
 
   OrderProductTab({
     Key? key,
     required this.currentProductType,
+    required this.onSearchResultChanged,
+    required this.isSearchTextNotEmpty,
   }) : super(key: key);
 
   @override
@@ -30,7 +34,9 @@ class _OrderProductTabState extends State<OrderProductTab> {
   @override
   Widget build(BuildContext context) {
     List<ProductItem> items = filterProductByType(
-      productItems,
+      (searchResult.isNotEmpty || widget.isSearchTextNotEmpty)
+          ? searchResult
+          : productItems,
       widget.currentProductType,
     );
     return Scaffold(

@@ -9,7 +9,6 @@ import 'widgets/order_banner.dart';
 import 'widgets/order_product_tab.dart';
 // import 'widgets/order_search.dart';
 import 'widgets/order_tabbar.dart';
-// import 'package:twicon/twicon.dart';
 
 enum SortOption {
   sortAZ,
@@ -155,35 +154,6 @@ final List<ProductItem> productItems = [
   ),
 ];
 
-List<ProductItem> teaItems = [
-  ProductItem(
-    id: '1',
-    name: 'Trà Xanh',
-    price: '25.000',
-    image: 'assets/images/products/coffee/coffee_3_1.jpeg',
-    type: 'tea',
-  ),
-  ProductItem(
-    id: '1',
-    name: 'Bánh Mì Sandwich',
-    price: '30.000',
-    image: 'assets/images/products/coffee/coffee_3_1.jpeg',
-    type: 'bread',
-  ),
-  // ... Các sản phẩm trà khác
-];
-
-List<ProductItem> breadItems = [
-  ProductItem(
-    id: '1',
-    name: 'Bánh Mì Sandwich',
-    price: '30.000',
-    image: 'assets/images/products/coffee/coffee_3_1.jpeg',
-    type: 'bread',
-  ),
-  // ... Các sản phẩm bánh khác
-];
-
 class OrderPage extends StatefulWidget {
   const OrderPage({super.key});
 
@@ -192,6 +162,8 @@ class OrderPage extends StatefulWidget {
 }
 
 class _OrderPageState extends State<OrderPage> {
+  final TextEditingController _searchController = TextEditingController();
+
   String currentProductType = 'coffee';
 
   @override
@@ -217,10 +189,11 @@ class _OrderPageState extends State<OrderPage> {
                     // backgroundColor: const Color(0xffF20078),
                     backgroundColor: AppColors.primaryColor,
                     automaticallyImplyLeading: false,
-                    title: const SizedBox(
+                    title: SizedBox(
                       height: 45,
                       child: TextField(
-                        decoration: InputDecoration(
+                        controller: _searchController,
+                        decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: AppStrings.searchProduct,
                           hintStyle: AppTheme.body_Medium_Thin_Grey,
@@ -229,6 +202,7 @@ class _OrderPageState extends State<OrderPage> {
                           prefixIcon: Icon(Icons.search),
                           contentPadding: EdgeInsets.zero,
                         ),
+                        onChanged: onSearchTextChanged,
                       ),
                     ),
                     actions: <Widget>[
@@ -271,12 +245,18 @@ class _OrderPageState extends State<OrderPage> {
               children: [
                 OrderProductTab(
                   currentProductType: 'coffee',
+                  onSearchResultChanged: onSearchResultChanged,
+                  isSearchTextNotEmpty: _searchController.text.isNotEmpty,
                 ),
                 OrderProductTab(
                   currentProductType: 'tea',
+                  onSearchResultChanged: onSearchResultChanged,
+                  isSearchTextNotEmpty: _searchController.text.isNotEmpty,
                 ),
                 OrderProductTab(
                   currentProductType: 'bread',
+                  onSearchResultChanged: onSearchResultChanged,
+                  isSearchTextNotEmpty: _searchController.text.isNotEmpty,
                 ),
               ],
             ),
@@ -284,5 +264,27 @@ class _OrderPageState extends State<OrderPage> {
         ),
       ),
     );
+  }
+
+  onSearchTextChanged(String text) async {
+    searchResult.clear();
+    if (text.isEmpty) {
+      setState(() {});
+      return;
+    }
+
+    final normalizedText = removeDiacritics(text.toLowerCase());
+
+    for (var item in productItems) {
+      final normalizedItemName = removeDiacritics(item.name.toLowerCase());
+      if (normalizedItemName.contains(normalizedText)) {
+        searchResult.add(item);
+      }
+    }
+    setState(() {});
+  }
+
+  void onSearchResultChanged(List<ProductItem> searchResults) {
+    setState(() {});
   }
 }
