@@ -1,10 +1,10 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 import '../../values/app_colors.dart';
-import '../../values/app_strings.dart';
 import '../../values/app_theme.dart';
 import 'widgets/home_delivery_address_widget.dart';
+import 'widgets/home_options.dart';
+
 import 'widgets/home_slider_widget.dart';
 
 class HomePage extends StatelessWidget {
@@ -66,6 +66,10 @@ class HomePage extends StatelessWidget {
                 height: 24,
               ),
               HomeSliderWidget(),
+              SizedBox(
+                height: 24,
+              ),
+              HomeOptions(),
             ],
           ),
         ),
