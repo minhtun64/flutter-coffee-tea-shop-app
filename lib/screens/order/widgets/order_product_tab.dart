@@ -80,10 +80,7 @@ class _OrderProductTabState extends State<OrderProductTab> {
                 // title: const OrderSearch(),
                 actions: <Widget>[
                   InkWell(
-                    onTap: () {
-                      // Xử lý sự kiện onPress chung cho Text và IconButton ở đây
-                      print('Lọc và sắp xếp pressed');
-                    },
+                    onTap: showSortFilterModal,
                     child: const Text(
                       'Lọc và sắp xếp',
                       style: AppTheme.body_Small_Thin_White_Underline,
@@ -99,29 +96,7 @@ class _OrderProductTabState extends State<OrderProductTab> {
                         Icons.filter_alt_outlined,
                       ),
                     ),
-                    onPressed: () {
-                      showModalBottomSheet(
-                          shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.vertical(
-                                  top: Radius.circular(12))),
-                          isScrollControlled: true,
-                          // backgroundColor: Colors.grey[300],
-                          context: context,
-                          builder: (BuildContext context) {
-                            return OrderSortFilterModal(
-                              productItems: searchResult.isNotEmpty
-                                  ? searchResult
-                                  : productItems,
-                              onFilterApplied: (filteredItems) {
-                                setState(() {
-                                  widget.filteredItems = filteredItems;
-                                  widget.isSortFilterApplied = true;
-                                  _scrollToTop();
-                                });
-                              },
-                            );
-                          });
-                    },
+                    onPressed: showSortFilterModal,
                   )
                 ],
               ),
@@ -150,6 +125,27 @@ class _OrderProductTabState extends State<OrderProductTab> {
         ),
       ),
     );
+  }
+
+  void showSortFilterModal() {
+    showModalBottomSheet(
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(12))),
+        isScrollControlled: true,
+        // backgroundColor: Colors.grey[300],
+        context: context,
+        builder: (BuildContext context) {
+          return OrderSortFilterModal(
+            productItems: searchResult.isNotEmpty ? searchResult : productItems,
+            onFilterApplied: (filteredItems) {
+              setState(() {
+                widget.filteredItems = filteredItems;
+                widget.isSortFilterApplied = true;
+                _scrollToTop();
+              });
+            },
+          );
+        });
   }
 
   void _scrollToTop() {
