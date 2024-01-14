@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../values/app_colors.dart';
 import '../../values/app_strings.dart';
 import '../../values/app_theme.dart';
-import '../account/accont_screen.dart';
+import '../account/account_screen.dart';
 import '../home/home_screen.dart';
 import '../notifications/notifications_screen.dart';
 import '../order/order_screen.dart';
@@ -86,7 +86,7 @@ class _NavigationState extends State<BottomTabsNavigation> {
       ),
       body: <Widget>[
         /// Home page
-        HomePage(),
+        const HomePage(),
 
         /// Order page
         const OrderPage(),
