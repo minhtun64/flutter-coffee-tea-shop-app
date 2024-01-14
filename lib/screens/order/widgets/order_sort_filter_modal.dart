@@ -49,6 +49,8 @@ class _OrderSortFilterModalState extends State<OrderSortFilterModal> {
     _maxPriceController.text = _maxPrice.round().toString();
   }
 
+  bool filterByDiscount = false;
+
   // TextEditingController _minPriceController;
   // TextEditingController _maxPriceController;
 
@@ -140,6 +142,32 @@ class _OrderSortFilterModalState extends State<OrderSortFilterModal> {
                       },
                     ),
                   ],
+                  const Divider(
+                    color: Colors.grey,
+                    thickness: 0.8,
+                    height: 10,
+                    indent: 16.0, // Adjust the space on the left side
+                    endIndent: 16.0, // Adjust the space on the right side
+                  ),
+                  ListTile(
+                    title: const Text(AppStrings.promotion,
+                        style: AppTheme.body_Medium_Bold),
+                    trailing: Switch(
+                      value: filterByDiscount,
+                      onChanged: (value) {
+                        setState(() {
+                          filterByDiscount = value;
+                          // Thực hiện logic lọc sản phẩm dựa trên giảm giá ở đây
+                          // Có thể cập nhật danh sách sản phẩm theo trạng thái mới (filterByDiscount)
+                        });
+                      },
+                    ),
+                  ),
+                  // const Padding(
+                  //   padding: EdgeInsets.all(16.0),
+                  //   child: Text(AppStrings.promotion,
+                  //       style: AppTheme.body_Medium_Bold),
+                  // ),
                   const Divider(
                     color: Colors.grey,
                     thickness: 0.8,
@@ -289,6 +317,13 @@ class _OrderSortFilterModalState extends State<OrderSortFilterModal> {
       filteredItems.sort(
           (a, b) => double.parse(b.price).compareTo(double.parse(a.price)));
     }
+
+    // Lọc sản phẩm giảm giá
+    if (filterByDiscount) {
+      filteredItems =
+          filteredItems.where((product) => product.oriPrice != '').toList();
+    }
+
     // Lọc theo giá
     filteredItems = filteredItems.where((product) {
       if (product.price.isNotEmpty) {
@@ -297,8 +332,6 @@ class _OrderSortFilterModalState extends State<OrderSortFilterModal> {
       }
       return false;
     }).toList();
-
-    print(filteredItems.length);
 
     // Gửi kết quả lọc đến OrderProductTab thông qua callback
     widget.onFilterApplied(filteredItems);
