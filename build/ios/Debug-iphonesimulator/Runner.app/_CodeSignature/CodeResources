@@ -46,7 +46,7 @@
 		</data>
 		<key>Frameworks/App.framework/App</key>
 		<data>
-		4YfzkJXCtAr+vpBxieMhNErmCBw=
+		thLdaczY60eDyN085wrIDQVlAGI=
 		</data>
 		<key>Frameworks/App.framework/Info.plist</key>
 		<data>
@@ -54,15 +54,15 @@
 		</data>
 		<key>Frameworks/App.framework/_CodeSignature/CodeResources</key>
 		<data>
-		2y2eNCHytmVgH2T86FzRTEGsboo=
+		UFgmjR1VLhmigC2MkeKP7XSnadM=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.bin</key>
 		<data>
-		0zZKT+q8o7MBKPKlsH4+dD9nubQ=
+		z1LSxRX6S3R+RHiRtZgdX9Nrd1M=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.json</key>
 		<data>
-		J5ksBNFkJMLgmj6ZJPo4mBszoNo=
+		hTYaL2tB1LHFbGi0QPUEcv3rIqk=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/FontManifest.json</key>
 		<data>
@@ -70,7 +70,7 @@
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/NOTICES.Z</key>
 		<data>
-		jRK9ns8S+xZ6wFQDRLT1sO2j75w=
+		jZi64R6IG5KyfD2xrGbnDc8ovYU=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/assets/fonts/Lexend/static/Lexend-Black.ttf</key>
 		<data>
@@ -108,6 +108,34 @@
 		<data>
 		dIaLcPuL2myy/CCCSvnGchXZBzg=
 		</data>
+		<key>Frameworks/App.framework/flutter_assets/assets/images/banners/slider_banners/slider_banner_1.jpeg</key>
+		<data>
+		Fx4ToD4+r+5RmAXrWggMf8OqOFg=
+		</data>
+		<key>Frameworks/App.framework/flutter_assets/assets/images/banners/slider_banners/slider_banner_2.jpeg</key>
+		<data>
+		0lr7lSS4hBmDPE4AakYhH72415Q=
+		</data>
+		<key>Frameworks/App.framework/flutter_assets/assets/images/banners/slider_banners/slider_banner_3.jpeg</key>
+		<data>
+		lheLwtacKj0f5VxZ0z2uJLr5w8U=
+		</data>
+		<key>Frameworks/App.framework/flutter_assets/assets/images/banners/slider_banners/slider_banner_4.jpeg</key>
+		<data>
+		H7WNtRL2+ky8GLkYk2mzgbZZYw4=
+		</data>
+		<key>Frameworks/App.framework/flutter_assets/assets/images/banners/slider_banners/slider_banner_5.jpeg</key>
+		<data>
+		tiSqiy9UawMD5TC36ntwyxnXNmQ=
+		</data>
+		<key>Frameworks/App.framework/flutter_assets/assets/images/vectors/facebook.svg</key>
+		<data>
+		hO2VIWlPY5rrAConRYgdfNOcbx0=
+		</data>
+		<key>Frameworks/App.framework/flutter_assets/assets/images/vectors/google.svg</key>
+		<data>
+		H5189EksBtSVihyO98jzyYeM7KM=
+		</data>
 		<key>Frameworks/App.framework/flutter_assets/assets/logo/brilicoffee_logo.png</key>
 		<data>
 		zma3269qswfMXHAH0nrEYkpBzN8=
@@ -126,7 +154,7 @@
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/kernel_blob.bin</key>
 		<data>
-		wYSdq0IDzQ7xR1JXfPRaPNVAPIY=
+		ON8Cy2SWhwvhxHeAtkFPMAJxcVo=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<data>
@@ -226,7 +254,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		PdlCeS4Uji4XJTlVtOABERX8dOg=
+		PnsDg9BM4xhL1FABYLWi+ajjJK4=
 		</data>
 		<key>PkgInfo</key>
 		<data>
@@ -309,7 +337,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			gV+Sw7wF2zOa1uzwNpbYhfHlksDtaAgqAmI30AeZTH8=
+			jIl/yD6sk++y/frSH3HquGMKGLbfWCQ74/B5Q4Eso5k=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/Info.plist</key>
@@ -323,21 +351,21 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			YHd5LhS0XRj+4nzj4sHGs/BCcF7QH3/RhVi2ISzVUBc=
+			ziS3l8JHL1ucC4RnaJtMyGtSWP84iTsefrFnSzqUJe4=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.bin</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			pK6OyYAaaSGJ3q7ycYibb/qcVWZYv4ktMvNHjLBlpy8=
+			mVSlkxi542UGlQTElUd0PgT1BXL+BvgfDGKwEh+FGnQ=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			DtF06tQG/G4/8eWZZo0nQ4sVWWN/7Coghuij7biWR0o=
+			ycyXRNHpT6hT55/qG0eQ/0w8x7vNWP1gInzmDUggdP8=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/FontManifest.json</key>
@@ -351,7 +379,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			uCiveuQA80iyQpjyFHAPXTEBJ4tXb4o/j3Mii0i7sJc=
+			L68f/TR2E0ekyGNVcKvT9UUJEzmRvcdGglaUEL4zWZA=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/assets/fonts/Lexend/static/Lexend-Black.ttf</key>
@@ -417,6 +445,55 @@
 			qMyBRfPi+rGd/OQtw+ty/vlD3EO4J7LCqFPHsCzTzXM=
 			</data>
 		</dict>
+		<key>Frameworks/App.framework/flutter_assets/assets/images/banners/slider_banners/slider_banner_1.jpeg</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			SpGh22sYhCIaC3uVsAjsPspVPBFu3xVnSeUoln4a5uE=
+			</data>
+		</dict>
+		<key>Frameworks/App.framework/flutter_assets/assets/images/banners/slider_banners/slider_banner_2.jpeg</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			vSEMVH4W6uVMec8VFONe4w90K2lkt3a8oO4qKArrYUY=
+			</data>
+		</dict>
+		<key>Frameworks/App.framework/flutter_assets/assets/images/banners/slider_banners/slider_banner_3.jpeg</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			qf8XdnJngoLUCEmAjG9jRopTGaWIkg1JD8P5LRQmLXY=
+			</data>
+		</dict>
+		<key>Frameworks/App.framework/flutter_assets/assets/images/banners/slider_banners/slider_banner_4.jpeg</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			3LFX+t96lHFXWWol+z0VBKlFIiTsGwFXxInYZBlvZu8=
+			</data>
+		</dict>
+		<key>Frameworks/App.framework/flutter_assets/assets/images/banners/slider_banners/slider_banner_5.jpeg</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			xtAxd8iH9wFN8hYkEc9IR67H8ZbnGbr3tLVefxarS4s=
+			</data>
+		</dict>
+		<key>Frameworks/App.framework/flutter_assets/assets/images/vectors/facebook.svg</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			wGaTPYMJrG5bFdJdvBqvctrLLvF3pgo04OTKYO52aYI=
+			</data>
+		</dict>
+		<key>Frameworks/App.framework/flutter_assets/assets/images/vectors/google.svg</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			rZ/8SFgfXkTqGVHkSfFb1nfoi6aDSBtCdRutOqPKu24=
+			</data>
+		</dict>
 		<key>Frameworks/App.framework/flutter_assets/assets/logo/brilicoffee_logo.png</key>
 		<dict>
 			<key>hash2</key>
@@ -449,7 +526,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			qLAuT7Lw1rpUFFjESFg7eUECjNWRjpDylXB98Ef5u8M=
+			6ZZCwGO7UW9VlPJ/32HCJlr9+duvt5nhq797pBJqdlA=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>

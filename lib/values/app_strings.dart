@@ -46,4 +46,12 @@ class AppStrings {
 
 //HOME
   static const String deliveryTo = 'Giao hàng đến';
+
+// ORDER
+  static const String searchProduct = 'Tìm sản phẩm';
+  static const String sortAndFilter = 'Lọc và sắp xếp';
+
+  static const String sortBy = 'Sắp xếp theo';
+  static const String price = 'Giá';
+  static const String apply = 'Áp dụng';
 }

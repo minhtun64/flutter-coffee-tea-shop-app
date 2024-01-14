@@ -74,6 +74,12 @@
       "languageVersion": "3.2"
     },
     {
+      "name": "intl",
+      "rootUri": "file:///Users/minhtuandang/.pub-cache/hosted/pub.dev/intl-0.17.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "lints",
       "rootUri": "file:///Users/minhtuandang/.pub-cache/hosted/pub.dev/lints-2.1.1",
       "packageUri": "lib/",
@@ -188,7 +194,7 @@
       "languageVersion": "3.2"
     }
   ],
-  "generated": "2024-01-13T19:24:55.872591Z",
+  "generated": "2024-01-14T09:09:42.140811Z",
   "generator": "pub",
   "generatorVersion": "3.2.3"
 }
