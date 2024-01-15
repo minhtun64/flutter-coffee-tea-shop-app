@@ -5,6 +5,7 @@ class ProductItem {
   final String image;
   final String type;
   String oriPrice;
+  bool isBestseller;
 
   ProductItem({
     required this.id,
@@ -13,5 +14,6 @@ class ProductItem {
     required this.image,
     required this.type,
     this.oriPrice = '',
+    this.isBestseller = false,
   });
 }

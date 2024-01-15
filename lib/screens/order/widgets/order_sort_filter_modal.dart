@@ -49,6 +49,9 @@ class _OrderSortFilterModalState extends State<OrderSortFilterModal> {
     _maxPriceController.text = _maxPrice.round().toString();
   }
 
+  bool filterByDiscount = false;
+  bool filterByBestseller = false;
+
   // TextEditingController _minPriceController;
   // TextEditingController _maxPriceController;
 
@@ -140,6 +143,43 @@ class _OrderSortFilterModalState extends State<OrderSortFilterModal> {
                       },
                     ),
                   ],
+                  const Divider(
+                    color: Colors.grey,
+                    thickness: 0.8,
+                    height: 10,
+                    indent: 16.0, // Adjust the space on the left side
+                    endIndent: 16.0, // Adjust the space on the right side
+                  ),
+                  ListTile(
+                    title: const Text(AppStrings.promotion,
+                        style: AppTheme.body_Medium_Bold),
+                    trailing: Switch(
+                      inactiveTrackColor: Colors.white,
+                      value: filterByDiscount,
+                      onChanged: (value) {
+                        setState(() {
+                          filterByDiscount = value;
+                          // Thực hiện logic lọc sản phẩm dựa trên giảm giá ở đây
+                          // Có thể cập nhật danh sách sản phẩm theo trạng thái mới (filterByDiscount)
+                        });
+                      },
+                    ),
+                  ),
+                  ListTile(
+                    title: const Text(AppStrings.bestSeller,
+                        style: AppTheme.body_Medium_Bold),
+                    trailing: Switch(
+                      inactiveTrackColor: Colors.white,
+                      value: filterByBestseller,
+                      onChanged: (value) {
+                        setState(() {
+                          filterByBestseller = value;
+                          // Thực hiện logic lọc sản phẩm dựa trên giảm giá ở đây
+                          // Có thể cập nhật danh sách sản phẩm theo trạng thái mới (filterByDiscount)
+                        });
+                      },
+                    ),
+                  ),
                   const Divider(
                     color: Colors.grey,
                     thickness: 0.8,
@@ -289,6 +329,25 @@ class _OrderSortFilterModalState extends State<OrderSortFilterModal> {
       filteredItems.sort(
           (a, b) => double.parse(b.price).compareTo(double.parse(a.price)));
     }
+
+// Lọc sản phẩm giảm giá & bestseller
+    List<bool Function(ProductItem)> filters = [];
+
+    // Thêm điều kiện lọc sản phẩm giảm giá vào danh sách
+    if (filterByDiscount) {
+      filters.add((product) => product.oriPrice != '');
+    }
+
+    // Thêm điều kiện lọc sản phẩm bestseller vào danh sách
+    if (filterByBestseller) {
+      filters.add((product) => product.isBestseller);
+    }
+
+    // Lọc danh sách sản phẩm sử dụng các điều kiện
+    filteredItems = filteredItems.where((product) {
+      return filters.isEmpty || filters.any((filter) => filter(product));
+    }).toList();
+
     // Lọc theo giá
     filteredItems = filteredItems.where((product) {
       if (product.price.isNotEmpty) {
@@ -297,8 +356,6 @@ class _OrderSortFilterModalState extends State<OrderSortFilterModal> {
       }
       return false;
     }).toList();
-
-    print(filteredItems.length);
 
     // Gửi kết quả lọc đến OrderProductTab thông qua callback
     widget.onFilterApplied(filteredItems);

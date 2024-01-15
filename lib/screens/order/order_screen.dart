@@ -32,6 +32,7 @@ final List<ProductItem> productItems = [
     price: '29000',
     image: 'assets/images/products/coffee/coffee_2_1.jpeg',
     type: 'coffee',
+    isBestseller: true,
   ),
   ProductItem(
     id: '3',
