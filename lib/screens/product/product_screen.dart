@@ -1,19 +1,16 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_coffee_tea_shop_app/screens/product/widgets/product_topping_choice.dart';
 import 'package:flutter_coffee_tea_shop_app/values/app_theme.dart';
 import 'package:intl/intl.dart';
 
+import '../../utils/common_widgets/expandable_text.dart';
 import '../../values/app_colors.dart';
 import '../order/order_screen.dart';
-
-final List<String> prodcutImages = [
-  'assets/images/products/coffee/coffee_1_1.jpeg',
-  'assets/images/products/coffee/coffee_2_1.jpeg',
-  'assets/images/products/coffee/coffee_3_1.jpeg',
-  'assets/images/products/coffee/coffee_4_1.jpeg',
-  'assets/images/products/coffee/coffee_5_1.jpeg',
-];
+import 'widgets/product_detail.dart';
+import 'widgets/product_images_slider.dart';
+import 'widgets/product_size_choice.dart';
 
 class ProductPage extends StatefulWidget {
   const ProductPage({
@@ -28,129 +25,49 @@ class ProductPage extends StatefulWidget {
 class _ProductPageState extends State<ProductPage> {
   // final String id;
   final priceFormat = NumberFormat.currency(locale: 'vi_VN', symbol: '');
-  int currentIndex = 0;
+
+  int quantity = 1;
+
+  void incrementQuantity() {
+    setState(() {
+      quantity++;
+    });
+  }
+
+  void decrementQuantity() {
+    if (quantity > 1) {
+      setState(() {
+        quantity--;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
-        title: const Text('Chi tiết sản phẩm',
-            style: AppTheme.body_Medium_Bold_White),
-        flexibleSpace: Container(
-          decoration: const BoxDecoration(
-              // color: Theme.of(context).primaryColor,
-              gradient: LinearGradient(colors: AppColors.defaultGradient)),
-        ),
-      ),
-      body: Container(
+    return Container(
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
         color: AppColors.scaffoldBackgroundColor,
-        child: Column(
+      ),
+      height: MediaQuery.of(context).size.height * 0.94,
+      padding: const EdgeInsets.only(top: 12),
+      child: Stack(children: [
+        Column(
           children: [
-            Expanded(
+            const Expanded(
               child: SingleChildScrollView(
-                // padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   children: [
-                    CarouselSlider(
-                      options: CarouselOptions(
-                        autoPlay: true,
-                        autoPlayInterval: const Duration(seconds: 3),
-                        autoPlayAnimationDuration:
-                            const Duration(milliseconds: 800),
-                        autoPlayCurve: Curves.fastOutSlowIn,
-                        pauseAutoPlayOnTouch: true,
-                        aspectRatio: 1 / 1,
-                        viewportFraction: 1,
-                        enableInfiniteScroll: true,
-                        onPageChanged: (index, reason) {
-                          setState(() {
-                            currentIndex = index;
-                          });
-                        },
-                      ),
-                      items: prodcutImages.map((image) {
-                        return Builder(
-                          builder: (BuildContext context) {
-                            return Container(
-                              width: MediaQuery.of(context).size.width,
-                              // width: double.infinity,
-                              margin:
-                                  const EdgeInsets.symmetric(horizontal: 5.0),
-                              decoration: BoxDecoration(
-                                // color: Colors.amber,
-                                borderRadius: BorderRadius.circular(8.0),
-                                image: DecorationImage(
-                                  image: AssetImage(image),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            );
-                          },
-                        );
-                      }).toList(),
-                    ),
-                    DotsIndicator(
-                      dotsCount: prodcutImages.length,
-                      position: currentIndex.toDouble(),
-                    ),
-                    // ClipRRect(
-                    //   borderRadius: BorderRadius.circular(12),
-                    //   child: SizedBox(
-                    //     // width: double.infinity,
-                    //     height: 430,
-                    //     child: Image.asset(
-                    //       'assets/images/products/coffee/coffee_1_1.jpeg',
-                    //       fit: BoxFit.fitHeight,
-                    //     ),
-                    //   ),
-                    // ),
-                    const Padding(
+                    ProductImagesSlider(),
+                    Padding(
                       padding: EdgeInsets.all(20),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(
-                            height: 2,
-                          ),
-                          Text(
-                            'Đường Đen Sữa',
-                            // maxLines: 1,
-                            overflow: TextOverflow.clip,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 24,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text(
-                                '45.000 đ',
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Colors.red,
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Text(
-                                '55.000 đ',
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 18,
-                                  decoration: TextDecoration.lineThrough,
-                                ),
-                              ),
-                            ],
-                          ),
+                          ProductDetail(),
+                          ProductSizeChoice(),
+                          SizedBox(height: 16),
+                          ProductToppingChoice(),
                         ],
                       ),
                     ),
@@ -158,9 +75,107 @@ class _ProductPageState extends State<ProductPage> {
                 ),
               ),
             ),
+            Container(
+              padding: const EdgeInsets.only(
+                bottom: 32,
+                top: 16,
+                right: 16,
+                left: 16,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.white, // Màu nền của hàng nút
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 3,
+                    blurRadius: 7,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        height: 40,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: AppColors.cardColor, // Màu của nút tăng/giảm
+                        ),
+                        child: IconButton(
+                          onPressed: decrementQuantity,
+                          icon: const Icon(
+                            Icons.remove,
+                            color: Colors.white,
+                            // size: 14, // Màu của biểu tượng "+"
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Text(
+                          '$quantity', // Hiển thị số lượng sản phẩm
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        height: 40,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: AppColors.cardColor, // Màu của nút tăng/giảm
+                        ),
+                        child: IconButton(
+                          onPressed: incrementQuantity,
+                          icon: const Icon(
+                            Icons.add,
+                            color: Colors.white, // Màu của biểu tượng "-"
+                            // size: 14,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      // Xử lý khi nhấn nút "Thêm vào giỏ hàng"
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors
+                          .primaryColor, // Màu nền của nút "Thêm vào giỏ hàng"
+                    ),
+                    child: const Text(
+                      'Thêm vào giỏ hàng',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
-      ),
+        Positioned(
+          top: 16,
+          right: 16,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pop(); // Đóng modal
+            },
+            child: Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.7),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: const Icon(Icons.close),
+            ),
+          ),
+        ),
+      ]),
     );
   }
 }

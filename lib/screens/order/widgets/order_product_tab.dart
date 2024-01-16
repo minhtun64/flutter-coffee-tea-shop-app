@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../modals/items.dart';
 import '../../../values/app_colors.dart';
 import '../../../values/app_theme.dart';
+import '../../product/product_screen.dart';
 import '../order_screen.dart';
 import '../../../utils/common_widgets/product_card.dart';
 import 'order_sort_filter_modal.dart';
@@ -113,7 +114,10 @@ class _OrderProductTabState extends State<OrderProductTab> {
                 (BuildContext context, int index) {
                   if (items.isNotEmpty || widget.isSearchTextNotEmpty) {
                     final productItem = items[index];
-                    return ProductCard(productItem: productItem);
+                    return InkWell(
+                      onTap: showProductDetailsModal,
+                      child: ProductCard(productItem: productItem),
+                    );
                   } else {
                     return Container();
                   }
@@ -145,6 +149,18 @@ class _OrderProductTabState extends State<OrderProductTab> {
               });
             },
           );
+        });
+  }
+
+  void showProductDetailsModal() {
+    showModalBottomSheet(
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(12))),
+        isScrollControlled: true,
+        // backgroundColor: Colors.grey[300],
+        context: context,
+        builder: (BuildContext context) {
+          return const ProductPage();
         });
   }
 
