@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../utils/common_widgets/expandable_text.dart';
+import '../../../utils/helpers/product_helper.dart';
 
 class ProductDetail extends StatefulWidget {
   final String name;
+  final String descr;
+
   final String price;
   final String oriPrice;
 
   const ProductDetail(
       {super.key,
       required this.name,
+      required this.descr,
       required this.price,
       required this.oriPrice});
 
@@ -43,7 +47,7 @@ class _ProductDetailState extends State<ProductDetail> {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
-              '${priceFormat.format(int.parse(widget.price))}đ',
+              ProductHelper.formatPrice(widget.price),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(
@@ -54,7 +58,7 @@ class _ProductDetailState extends State<ProductDetail> {
             ),
             if (widget.oriPrice != '') ...[
               Text(
-                '${priceFormat.format(int.parse(widget.oriPrice))}đ',
+                ProductHelper.formatPrice(widget.oriPrice),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
@@ -69,9 +73,8 @@ class _ProductDetailState extends State<ProductDetail> {
         const SizedBox(
           height: 12,
         ),
-        const ExpandableText(
-          text:
-              'Nếu chuộng vị cà phê đậm đà, bùng nổ và thích vị đường đen ngọt thơm, Đường Đen Sữa Đá đích thị là thức uống dành cho bạn. Không chỉ giúp bạn tỉnh táo buổi sáng, Đường Đen Sữa Đá còn hấp dẫn đến ngụm cuối cùng bởi thạch cà phê giòn dai, nhai cực cuốn. - Khuấy đều trước khi sử dụng.',
+        ExpandableText(
+          text: widget.descr,
           maxLines: 2,
         ),
       ],

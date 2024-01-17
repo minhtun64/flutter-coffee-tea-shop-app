@@ -46,7 +46,7 @@
 		</data>
 		<key>Frameworks/App.framework/App</key>
 		<data>
-		zWjCH3tvuLJ4beaol7uy3CIIR1w=
+		jVpS6g2hwI2DN5IYpYg298jKTuE=
 		</data>
 		<key>Frameworks/App.framework/Info.plist</key>
 		<data>
@@ -54,15 +54,15 @@
 		</data>
 		<key>Frameworks/App.framework/_CodeSignature/CodeResources</key>
 		<data>
-		yLnNwDKgcG+ByZRS5798nRbEaRQ=
+		GiFV+rF09Po0jvmLPtc8wz18meY=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.bin</key>
 		<data>
-		VumaaUN2ocJ/Yutg3vR5/N4mlF0=
+		UkrDRvIpnbTl4wJpSPktpQNSJWY=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.json</key>
 		<data>
-		BezzpVHnZsNCZz8/aWTXseq1bfA=
+		A9eApI4JO9RBsWxO+qaChzY84MM=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/FontManifest.json</key>
 		<data>
@@ -136,26 +136,6 @@
 		<data>
 		tiSqiy9UawMD5TC36ntwyxnXNmQ=
 		</data>
-		<key>Frameworks/App.framework/flutter_assets/assets/images/products/coffee/coffee_1_1.jpeg</key>
-		<data>
-		MWBjzseDbILLm+IgmLXgKdmNzE0=
-		</data>
-		<key>Frameworks/App.framework/flutter_assets/assets/images/products/coffee/coffee_2_1.jpeg</key>
-		<data>
-		ZvkvX2yq/+jyYM3czwWg3Tj6FAA=
-		</data>
-		<key>Frameworks/App.framework/flutter_assets/assets/images/products/coffee/coffee_3_1.jpeg</key>
-		<data>
-		NZuH/kA42BNEgOgSpUUvCWNY5xk=
-		</data>
-		<key>Frameworks/App.framework/flutter_assets/assets/images/products/coffee/coffee_4_1.jpeg</key>
-		<data>
-		jTJO697IZYdYElcCcyyKdtsWtM4=
-		</data>
-		<key>Frameworks/App.framework/flutter_assets/assets/images/products/coffee/coffee_5_1.jpeg</key>
-		<data>
-		E4jBqVGteONK1xeq+0a93GYh6Lo=
-		</data>
 		<key>Frameworks/App.framework/flutter_assets/assets/images/vectors/facebook.svg</key>
 		<data>
 		hO2VIWlPY5rrAConRYgdfNOcbx0=
@@ -182,7 +162,7 @@
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/kernel_blob.bin</key>
 		<data>
-		8NZm9ssfQ4QoIpn4W8j6U4e3OtY=
+		zxqyEPmigQIHngRpcWtgqPKFpyA=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<data>
@@ -365,7 +345,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Fs2g7tPS5lQ1kV0QyqVMp+Hzo1uXkuiqcpTTLPH6Jv8=
+			bRBMG2pPFWMegd+zcpMZu0yR9R11tcBLMxTVpJTrj18=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/Info.plist</key>
@@ -379,21 +359,21 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			GT4zB/NYeAS19GHgxO/jUblRWZ4iUljjcDswDMNk3z8=
+			hFzUipoqGZH1xwBwI+rZbGmlceo+3+ji3XqXnuCxCgM=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.bin</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			CFvRbaZkhLdgqrx2Pd7ivVGq7YAFvJpvGIFyeEM5MQc=
+			0BHP3JGILss8bJiZjjI5O7wxQExocQY2HbmOpiW9y9Y=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			M4A41n3UOUF7NniTI5N+JZ62a93oP+c2uGQCJGLAK4w=
+			+/at5rmdH/zXX8O+WwwGvVpPgixBEBRXqmnmlIWqRWw=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/FontManifest.json</key>
@@ -522,41 +502,6 @@
 			xtAxd8iH9wFN8hYkEc9IR67H8ZbnGbr3tLVefxarS4s=
 			</data>
 		</dict>
-		<key>Frameworks/App.framework/flutter_assets/assets/images/products/coffee/coffee_1_1.jpeg</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			sXMi9semqRl54V7EUQfAabSA4ElFyEe50RkeDf7OTEg=
-			</data>
-		</dict>
-		<key>Frameworks/App.framework/flutter_assets/assets/images/products/coffee/coffee_2_1.jpeg</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			F+zDe7ZVBHK0cly8FXe8Vp0B71EU5hfvNU547uAO6Mw=
-			</data>
-		</dict>
-		<key>Frameworks/App.framework/flutter_assets/assets/images/products/coffee/coffee_3_1.jpeg</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			1+Lt7kzo9bjVR6vGv74jTs6kWYOASnX3iVW1Zp0y7Mw=
-			</data>
-		</dict>
-		<key>Frameworks/App.framework/flutter_assets/assets/images/products/coffee/coffee_4_1.jpeg</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			2AUHCRlsCNx93WpvEUoJpTM33xq5+R9t4MnBgAEv95w=
-			</data>
-		</dict>
-		<key>Frameworks/App.framework/flutter_assets/assets/images/products/coffee/coffee_5_1.jpeg</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			zljl++1YbvhZR+63dvAQDkhUcGL+9R0BRv57fh7SHBQ=
-			</data>
-		</dict>
 		<key>Frameworks/App.framework/flutter_assets/assets/images/vectors/facebook.svg</key>
 		<dict>
 			<key>hash2</key>
@@ -603,7 +548,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			rRdUtZUV7GZIDrNuSspOE8BjNT7AQFnQvVgYJmJmNtM=
+			PhCU5x2B02ljm1jsdLTsvCVy9+DWJ079Z3itfRET+Vk=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>

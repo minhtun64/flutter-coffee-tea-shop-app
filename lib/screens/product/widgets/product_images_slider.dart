@@ -2,16 +2,10 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 
-final List<String> productImages = [
-  'assets/images/products/coffee/coffee_1_1.jpeg',
-  'assets/images/products/coffee/coffee_2_1.jpeg',
-  'assets/images/products/coffee/coffee_3_1.jpeg',
-  'assets/images/products/coffee/coffee_4_1.jpeg',
-  'assets/images/products/coffee/coffee_5_1.jpeg',
-];
-
 class ProductImagesSlider extends StatefulWidget {
-  const ProductImagesSlider({super.key});
+  final List<String> productImagePaths;
+
+  const ProductImagesSlider({super.key, required this.productImagePaths});
 
   @override
   State<ProductImagesSlider> createState() => _ProductImagesSliderState();
@@ -40,7 +34,7 @@ class _ProductImagesSliderState extends State<ProductImagesSlider> {
               });
             },
           ),
-          items: productImages.map((image) {
+          items: widget.productImagePaths.map((image) {
             return Builder(
               builder: (BuildContext context) {
                 return Container(
@@ -61,7 +55,7 @@ class _ProductImagesSliderState extends State<ProductImagesSlider> {
           }).toList(),
         ),
         DotsIndicator(
-          dotsCount: productImages.length,
+          dotsCount: widget.productImagePaths.length,
           position: currentIndex.toDouble(),
         ),
       ],

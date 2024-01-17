@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import '../../modals/items.dart';
 import '../../screens/product/product_screen.dart';
 import '../../values/app_theme.dart';
+import '../helpers/product_helper.dart';
 
 // ignore: must_be_immutable
 class ProductCard extends StatefulWidget {
@@ -47,7 +48,7 @@ class _ProductCardState extends State<ProductCard> {
               child: SizedBox(
                 height: 172,
                 child: Image.asset(
-                  widget.productItem.image,
+                  ProductHelper.getMainImagePath(widget.productItem),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -73,14 +74,17 @@ class _ProductCardState extends State<ProductCard> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '${priceFormat.format(int.parse(widget.productItem.price))}đ',
+                        ProductHelper.formatPrice(
+                            ProductHelper.getMediumSizePrice(
+                                widget.productItem)),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: AppTheme.body_Small_Bold_Red,
                       ),
                       if (widget.productItem.oriPrice != '') ...[
                         Text(
-                          '${priceFormat.format(int.parse(widget.productItem.oriPrice))}đ',
+                          ProductHelper.formatPrice(
+                              widget.productItem.oriPrice),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: AppTheme.body_Small_Thin_Black_LineThrough,

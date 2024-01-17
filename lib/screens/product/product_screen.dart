@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 
 import '../../modals/items.dart';
 import '../../utils/common_widgets/expandable_text.dart';
+import '../../utils/helpers/product_helper.dart';
 import '../../values/app_colors.dart';
 import '../order/order_screen.dart';
 import 'widgets/product_detail.dart';
@@ -64,7 +65,9 @@ class _ProductPageState extends State<ProductPage> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    const ProductImagesSlider(),
+                    ProductImagesSlider(
+                        productImagePaths:
+                            ProductHelper.getImagePaths(productItem)),
                     Padding(
                       padding: const EdgeInsets.all(20),
                       child: Column(
@@ -72,9 +75,18 @@ class _ProductPageState extends State<ProductPage> {
                         children: [
                           ProductDetail(
                               name: productItem.name,
-                              price: productItem.price,
+                              descr: productItem.descr,
+                              price:
+                                  ProductHelper.getMediumSizePrice(productItem),
                               oriPrice: productItem.oriPrice),
-                          const ProductSizeChoice(),
+                          ProductSizeChoice(
+                            sPrice:
+                                ProductHelper.getSmallSizePrice(productItem),
+                            mPrice:
+                                ProductHelper.getMediumSizePrice(productItem),
+                            lPrice:
+                                ProductHelper.getLargeSizePrice(productItem),
+                          ),
                           const SizedBox(height: 16),
                           const ProductToppingChoice(),
                         ],

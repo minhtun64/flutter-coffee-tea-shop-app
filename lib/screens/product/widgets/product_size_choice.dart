@@ -1,7 +1,17 @@
 import 'package:flutter/material.dart';
 
+import '../../../utils/helpers/product_helper.dart';
+
 class ProductSizeChoice extends StatefulWidget {
-  const ProductSizeChoice({super.key});
+  final String sPrice;
+  final String mPrice;
+  final String lPrice;
+
+  const ProductSizeChoice(
+      {super.key,
+      required this.sPrice,
+      required this.mPrice,
+      required this.lPrice});
 
   @override
   State<ProductSizeChoice> createState() => _ProductSizeChoiceState();
@@ -38,11 +48,11 @@ class _ProductSizeChoiceState extends State<ProductSizeChoice> {
         ),
         const SizedBox(height: 8),
         RadioListTile<String>(
-          title: const Row(
+          title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Lớn'),
-              Text('50.000đ'),
+              const Text('Lớn'),
+              Text(ProductHelper.formatPrice(widget.lPrice)),
             ],
           ),
           value: 'Large',
@@ -56,11 +66,11 @@ class _ProductSizeChoiceState extends State<ProductSizeChoice> {
               ListTileControlAffinity.leading, // Đặt radio bên trái
         ),
         RadioListTile<String>(
-          title: const Row(
+          title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Vừa'),
-              Text('45.000đ'),
+              const Text('Vừa'),
+              Text(ProductHelper.formatPrice(widget.mPrice)),
             ],
           ),
           value: 'Medium',
@@ -74,11 +84,11 @@ class _ProductSizeChoiceState extends State<ProductSizeChoice> {
               ListTileControlAffinity.leading, // Đặt radio bên trái
         ),
         RadioListTile<String>(
-          title: const Row(
+          title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Nhỏ'),
-              Text('35.000đ'),
+              const Text('Nhỏ'),
+              Text(ProductHelper.formatPrice(widget.sPrice)),
             ],
           ),
           value: 'Small',

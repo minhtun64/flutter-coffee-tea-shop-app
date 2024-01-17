@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../modals/items.dart';
+import '../../../utils/helpers/product_helper.dart';
 import '../../../values/app_colors.dart';
 import '../../../values/app_strings.dart';
 import '../../../values/app_theme.dart';
@@ -277,28 +278,28 @@ class _OrderSortFilterModalState extends State<OrderSortFilterModal> {
   void applyFilters() {
     // Thực hiện lọc và sắp xếp sản phẩm dựa trên các điều kiện đã chọn
     List<ProductItem> filteredItems = widget.productItems;
-//Lọc sắp xếp
+
+    //Lọc sắp xếp
     if (selectedSortOption == 'sortAZ') {
       filteredItems.sort((a, b) => a.name.compareTo(b.name));
     } else if (selectedSortOption == 'sortZA') {
       filteredItems.sort((a, b) => b.name.compareTo(a.name));
     } else if (selectedSortOption == 'sortLowToHigh') {
-      filteredItems.sort(
-          (a, b) => double.parse(a.price).compareTo(double.parse(b.price)));
+      filteredItems.sort((a, b) =>
+          double.parse(ProductHelper.getMediumSizePrice(a))
+              .compareTo(double.parse(ProductHelper.getMediumSizePrice(b))));
     } else if (selectedSortOption == 'sortHighToLow') {
-      filteredItems.sort(
-          (a, b) => double.parse(b.price).compareTo(double.parse(a.price)));
+      filteredItems.sort((a, b) =>
+          double.parse(ProductHelper.getMediumSizePrice(b))
+              .compareTo(double.parse(ProductHelper.getMediumSizePrice(a))));
     }
+
     // Lọc theo giá
     filteredItems = filteredItems.where((product) {
-      if (product.price.isNotEmpty) {
-        double productPrice = double.tryParse(product.price) ?? 0;
-        return productPrice >= _minPrice && productPrice <= _maxPrice;
-      }
-      return false;
+      double mediumSizePrice =
+          double.tryParse(ProductHelper.getMediumSizePrice(product)) ?? 0;
+      return mediumSizePrice >= _minPrice && mediumSizePrice <= _maxPrice;
     }).toList();
-
-    print(filteredItems.length);
 
     // Gửi kết quả lọc đến OrderProductTab thông qua callback
     widget.onFilterApplied(filteredItems);
