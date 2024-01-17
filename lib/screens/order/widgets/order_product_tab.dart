@@ -114,10 +114,7 @@ class _OrderProductTabState extends State<OrderProductTab> {
                 (BuildContext context, int index) {
                   if (items.isNotEmpty || widget.isSearchTextNotEmpty) {
                     final productItem = items[index];
-                    return InkWell(
-                      onTap: showProductDetailsModal,
-                      child: ProductCard(productItem: productItem),
-                    );
+                    return ProductCard(productItem: productItem);
                   } else {
                     return Container();
                   }
@@ -149,18 +146,6 @@ class _OrderProductTabState extends State<OrderProductTab> {
               });
             },
           );
-        });
-  }
-
-  void showProductDetailsModal() {
-    showModalBottomSheet(
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(12))),
-        isScrollControlled: true,
-        // backgroundColor: Colors.grey[300],
-        context: context,
-        builder: (BuildContext context) {
-          return const ProductPage();
         });
   }
 

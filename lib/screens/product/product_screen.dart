@@ -5,6 +5,7 @@ import 'package:flutter_coffee_tea_shop_app/screens/product/widgets/product_topp
 import 'package:flutter_coffee_tea_shop_app/values/app_theme.dart';
 import 'package:intl/intl.dart';
 
+import '../../modals/items.dart';
 import '../../utils/common_widgets/expandable_text.dart';
 import '../../values/app_colors.dart';
 import '../order/order_screen.dart';
@@ -13,8 +14,11 @@ import 'widgets/product_images_slider.dart';
 import 'widgets/product_size_choice.dart';
 
 class ProductPage extends StatefulWidget {
+  final String id;
+
   const ProductPage({
     super.key,
+    required this.id,
     //  required this.id
   });
 
@@ -44,6 +48,8 @@ class _ProductPageState extends State<ProductPage> {
 
   @override
   Widget build(BuildContext context) {
+    ProductItem productItem =
+        productItems.firstWhere((item) => item.id == widget.id);
     return Container(
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
@@ -54,20 +60,23 @@ class _ProductPageState extends State<ProductPage> {
       child: Stack(children: [
         Column(
           children: [
-            const Expanded(
+            Expanded(
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    ProductImagesSlider(),
+                    const ProductImagesSlider(),
                     Padding(
-                      padding: EdgeInsets.all(20),
+                      padding: const EdgeInsets.all(20),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          ProductDetail(),
-                          ProductSizeChoice(),
-                          SizedBox(height: 16),
-                          ProductToppingChoice(),
+                          ProductDetail(
+                              name: productItem.name,
+                              price: productItem.price,
+                              oriPrice: productItem.oriPrice),
+                          const ProductSizeChoice(),
+                          const SizedBox(height: 16),
+                          const ProductToppingChoice(),
                         ],
                       ),
                     ),

@@ -32,8 +32,8 @@ class Routes {
       case AppRoutes.navigate_home:
         return getRoute(widget: BottomTabsNavigation(currentPageIndex: 0));
 
-      case AppRoutes.product:
-        return getRoute(widget: ProductPage());
+      // case AppRoutes.product:
+      //   return getRoute(widget: ProductPage());
 
       /// An invalid route. User shouldn't see this,
       /// it's for debugging purpose only.
