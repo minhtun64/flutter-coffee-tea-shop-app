@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../modals/items.dart';
+import '../../../models/product_item_model.dart';
+import '../../../utils/helpers/product_helper.dart';
 import '../../../values/app_colors.dart';
 import '../../../values/app_strings.dart';
 import '../../../values/app_theme.dart';
@@ -48,9 +49,6 @@ class _OrderSortFilterModalState extends State<OrderSortFilterModal> {
     _minPriceController.text = _minPrice.round().toString();
     _maxPriceController.text = _maxPrice.round().toString();
   }
-
-  bool filterByDiscount = false;
-  bool filterByBestseller = false;
 
   // TextEditingController _minPriceController;
   // TextEditingController _maxPriceController;
@@ -143,43 +141,6 @@ class _OrderSortFilterModalState extends State<OrderSortFilterModal> {
                       },
                     ),
                   ],
-                  const Divider(
-                    color: Colors.grey,
-                    thickness: 0.8,
-                    height: 10,
-                    indent: 16.0, // Adjust the space on the left side
-                    endIndent: 16.0, // Adjust the space on the right side
-                  ),
-                  ListTile(
-                    title: const Text(AppStrings.promotion,
-                        style: AppTheme.body_Medium_Bold),
-                    trailing: Switch(
-                      inactiveTrackColor: Colors.white,
-                      value: filterByDiscount,
-                      onChanged: (value) {
-                        setState(() {
-                          filterByDiscount = value;
-                          // Thực hiện logic lọc sản phẩm dựa trên giảm giá ở đây
-                          // Có thể cập nhật danh sách sản phẩm theo trạng thái mới (filterByDiscount)
-                        });
-                      },
-                    ),
-                  ),
-                  ListTile(
-                    title: const Text(AppStrings.bestSeller,
-                        style: AppTheme.body_Medium_Bold),
-                    trailing: Switch(
-                      inactiveTrackColor: Colors.white,
-                      value: filterByBestseller,
-                      onChanged: (value) {
-                        setState(() {
-                          filterByBestseller = value;
-                          // Thực hiện logic lọc sản phẩm dựa trên giảm giá ở đây
-                          // Có thể cập nhật danh sách sản phẩm theo trạng thái mới (filterByDiscount)
-                        });
-                      },
-                    ),
-                  ),
                   const Divider(
                     color: Colors.grey,
                     thickness: 0.8,
@@ -317,44 +278,27 @@ class _OrderSortFilterModalState extends State<OrderSortFilterModal> {
   void applyFilters() {
     // Thực hiện lọc và sắp xếp sản phẩm dựa trên các điều kiện đã chọn
     List<ProductItem> filteredItems = widget.productItems;
-//Lọc sắp xếp
+
+    //Lọc sắp xếp
     if (selectedSortOption == 'sortAZ') {
       filteredItems.sort((a, b) => a.name.compareTo(b.name));
     } else if (selectedSortOption == 'sortZA') {
       filteredItems.sort((a, b) => b.name.compareTo(a.name));
     } else if (selectedSortOption == 'sortLowToHigh') {
-      filteredItems.sort(
-          (a, b) => double.parse(a.price).compareTo(double.parse(b.price)));
+      filteredItems.sort((a, b) =>
+          double.parse(ProductHelper.getMediumSizePrice(a))
+              .compareTo(double.parse(ProductHelper.getMediumSizePrice(b))));
     } else if (selectedSortOption == 'sortHighToLow') {
-      filteredItems.sort(
-          (a, b) => double.parse(b.price).compareTo(double.parse(a.price)));
+      filteredItems.sort((a, b) =>
+          double.parse(ProductHelper.getMediumSizePrice(b))
+              .compareTo(double.parse(ProductHelper.getMediumSizePrice(a))));
     }
-
-// Lọc sản phẩm giảm giá & bestseller
-    List<bool Function(ProductItem)> filters = [];
-
-    // Thêm điều kiện lọc sản phẩm giảm giá vào danh sách
-    if (filterByDiscount) {
-      filters.add((product) => product.oriPrice != '');
-    }
-
-    // Thêm điều kiện lọc sản phẩm bestseller vào danh sách
-    if (filterByBestseller) {
-      filters.add((product) => product.isBestseller);
-    }
-
-    // Lọc danh sách sản phẩm sử dụng các điều kiện
-    filteredItems = filteredItems.where((product) {
-      return filters.isEmpty || filters.any((filter) => filter(product));
-    }).toList();
 
     // Lọc theo giá
     filteredItems = filteredItems.where((product) {
-      if (product.price.isNotEmpty) {
-        double productPrice = double.tryParse(product.price) ?? 0;
-        return productPrice >= _minPrice && productPrice <= _maxPrice;
-      }
-      return false;
+      double mediumSizePrice =
+          double.tryParse(ProductHelper.getMediumSizePrice(product)) ?? 0;
+      return mediumSizePrice >= _minPrice && mediumSizePrice <= _maxPrice;
     }).toList();
 
     // Gửi kết quả lọc đến OrderProductTab thông qua callback

@@ -4,4 +4,5 @@ class AppRoutes {
   static const String login = 'login';
   static const String register = 'register';
   static const String navigate_home = 'navigate_home';
+  static const String product = 'product';
 }

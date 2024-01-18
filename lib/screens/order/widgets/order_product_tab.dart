@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../modals/items.dart';
+import '../../../models/product_item_model.dart';
 import '../../../values/app_colors.dart';
 import '../../../values/app_theme.dart';
 import '../order_screen.dart';
