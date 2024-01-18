@@ -26,6 +26,7 @@ class _ExpandableTextState extends State<ExpandableText> {
           style: const TextStyle(),
         ),
         Align(
+          heightFactor: 0.5,
           alignment: Alignment.centerRight,
           child: TextButton(
             onPressed: () {

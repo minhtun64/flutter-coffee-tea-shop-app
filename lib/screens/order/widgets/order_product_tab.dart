@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../modals/items.dart';
+import '../../../models/product_item_model.dart';
 import '../../../values/app_colors.dart';
 import '../../../values/app_theme.dart';
-import '../../product/product_screen.dart';
 import '../order_screen.dart';
 import '../../../utils/common_widgets/product_card.dart';
 import 'order_sort_filter_modal.dart';

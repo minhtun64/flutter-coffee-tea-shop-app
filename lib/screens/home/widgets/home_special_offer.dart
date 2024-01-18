@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../modals/items.dart';
+import '../../../models/product_item_model.dart';
 import '../../../utils/common_widgets/product_card.dart';
 import '../../../values/app_strings.dart';
 import '../../../values/app_theme.dart';
-
-import '../../order/order_screen.dart'; // Lấy List productItem
 
 class HomeSpecialOffer extends StatelessWidget {
   const HomeSpecialOffer({super.key});

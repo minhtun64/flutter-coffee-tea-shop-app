@@ -54,10 +54,12 @@ class _ProductImagesSliderState extends State<ProductImagesSlider> {
             );
           }).toList(),
         ),
-        DotsIndicator(
-          dotsCount: widget.productImagePaths.length,
-          position: currentIndex.toDouble(),
-        ),
+        if (widget.productImagePaths.length > 1) ...[
+          DotsIndicator(
+            dotsCount: widget.productImagePaths.length,
+            position: currentIndex.toDouble(),
+          ),
+        ]
       ],
     );
   }

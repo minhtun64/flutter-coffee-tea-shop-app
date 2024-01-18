@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'screens/bottomTabsNavigation/bottomTabsNavigation.dart';
 import 'screens/login/login_screen.dart';
-import 'screens/product/product_screen.dart';
 import 'screens/register/register_screen.dart';
 import 'utils/common_widgets/invalid_route.dart';
 import 'values/app_routes.dart';

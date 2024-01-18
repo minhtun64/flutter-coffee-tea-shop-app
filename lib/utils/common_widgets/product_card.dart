@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
-import '../../modals/items.dart';
+import '../../models/product_item_model.dart';
 import '../../screens/product/product_screen.dart';
 import '../../values/app_theme.dart';
 import '../helpers/product_helper.dart';
@@ -21,7 +20,6 @@ class _ProductCardState extends State<ProductCard> {
   @override
   Widget build(BuildContext context) {
     // Định dạng giá thành số có dấu chấm ngắt phần nghìn
-    final priceFormat = NumberFormat.currency(locale: 'vi_VN', symbol: '');
 
     return InkWell(
       onTap: () => showProductDetailsModal(widget.productItem.id),
@@ -109,7 +107,12 @@ class _ProductCardState extends State<ProductCard> {
         // backgroundColor: Colors.grey[300],
         context: context,
         builder: (BuildContext context) {
-          return ProductPage(id: id);
+          return GestureDetector(
+              onTap: () {
+                // Ẩn bàn phím khi chạm vào vùng bên ngoài modal
+                FocusScope.of(context).unfocus();
+              },
+              child: ProductPage(id: id));
         });
   }
 }

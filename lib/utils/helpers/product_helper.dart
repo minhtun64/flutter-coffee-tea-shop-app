@@ -1,7 +1,9 @@
 // Tạo một class helper
 import 'package:intl/intl.dart';
 
-import '../../modals/items.dart';
+import '../../models/product_image_model.dart';
+import '../../models/product_item_model.dart';
+import '../../models/product_price_model.dart';
 
 class ProductHelper {
   static String getMediumSizePrice(ProductItem product) {
