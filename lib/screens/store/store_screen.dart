@@ -15,7 +15,6 @@ class StorePage extends StatefulWidget {
 class _StorePageState extends State<StorePage> {
   Position? _currentUserPosition;
   double? distanceImMeter = 0.0;
-  // Data data = Data();
   List<StoreItem> items = storeItems;
 
   Future _getTheDistance() async {
@@ -61,9 +60,70 @@ class _StorePageState extends State<StorePage> {
     }
   }
 
+  String? selectedFilter;
+  List<StoreItem> sortedItems = [];
+  void _showFilterModal(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Padding(
+          padding: const EdgeInsets.only(
+            bottom: 24,
+            top: 8,
+            left: 8,
+            right: 8,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              RadioListTile<String>(
+                title: const Text('Gần nhất'),
+                value: 'nearest',
+                groupValue: selectedFilter,
+                onChanged: (String? value) {
+                  setState(() {
+                    selectedFilter = value;
+                    sortedItems = sortItems(selectedFilter!);
+                  });
+                  Navigator.pop(context);
+                },
+              ),
+              RadioListTile<String>(
+                title: const Text('Xa nhất'),
+                value: 'furthest',
+                groupValue: selectedFilter,
+                onChanged: (String? value) {
+                  setState(() {
+                    selectedFilter = value;
+                    sortedItems = sortItems(selectedFilter!);
+                  });
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  List<StoreItem> sortItems(String filter) {
+    // Sắp xếp danh sách items dựa trên lựa chọn
+    if (filter == 'nearest') {
+      return items..sort((a, b) => a.distance.compareTo(b.distance));
+    } else if (filter == 'furthest') {
+      return items..sort((a, b) => b.distance.compareTo(a.distance));
+    }
+
+    // Nếu lựa chọn không hợp lệ, trả về danh sách không thay đổi
+    return items;
+  }
+
   @override
   void initState() {
     _getTheDistance();
+    selectedFilter = 'nearest';
+    sortedItems = sortItems(selectedFilter!);
     super.initState();
   }
 
@@ -78,93 +138,119 @@ class _StorePageState extends State<StorePage> {
           color: Colors.white, // Thay đổi màu ở đây
         ),
         centerTitle: true,
-        backgroundColor: AppColors.primaryColor,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+              // color: Theme.of(context).primaryColor,
+              gradient: LinearGradient(colors: AppColors.defaultGradient)),
+        ),
         title: const Text('Danh sách cửa hàng',
-            style: AppTheme.body_Medium_Bold_White),
+            style: TextStyle(color: Colors.white, fontSize: 20)),
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(10, 30, 10, 0),
-        child: GridView.builder(
-            itemCount: items.length,
-            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 200,
-              childAspectRatio: 3 / 3,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
+        child: Column(
+          children: [
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Chọn cửa hàng để xem chỉ đường'),
+                SizedBox(
+                  width: 4,
+                ),
+                Icon(Icons.map_outlined),
+              ],
             ),
-            itemBuilder: (context, index) {
-              return Container(
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(12)),
-                  color: AppColors.cardColor,
-                ),
-                padding: const EdgeInsets.only(bottom: 4),
-                // height: height * 0.9,
-                // width: width * 0.3,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  // crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    GestureDetector(
-                      onTap: () => showDirection(items[index]),
-                      child: Column(
-                        children: [
-                          ClipRRect(
-                            borderRadius: const BorderRadius.vertical(
-                                top: Radius.circular(12)),
-                            child: Image(
-                              height: height * 0.13,
-                              width: width,
-                              image: AssetImage(items[index].image),
-                              fit: BoxFit.cover,
+            const SizedBox(
+              height: 12,
+            ),
+            Expanded(
+              child: GridView.builder(
+                  itemCount: sortedItems.length,
+                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 200,
+                    childAspectRatio: 3 / 3,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                  ),
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () => showDirection(sortedItems[index]),
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                          color: AppColors.cardColor,
+                        ),
+                        padding: const EdgeInsets.only(bottom: 4),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Column(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: const BorderRadius.vertical(
+                                      top: Radius.circular(12)),
+                                  child: Image(
+                                    height: height * 0.13,
+                                    width: width,
+                                    image: AssetImage(sortedItems[index].image),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0),
+                                  child: SizedBox(
+                                    width: width,
+                                    child: Text(
+                                      sortedItems[index].name,
+                                      maxLines: 2,
+                                      textAlign: TextAlign.start,
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: AppColors.primaryColor,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                          // SizedBox(
-                          //   height:
-                          //   width: width,
-                          //   child: Image.asset(
-                          //     items[index].image,
-                          //     fit: BoxFit.cover,
-                          //   ),
-                          // ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: Text(
-                              items[index].name,
-                              maxLines: 2,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.primaryColor,
-                              ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                const Icon(
+                                  Icons.location_on,
+                                  color: Colors.white,
+                                  size: 18,
+                                ),
+                                Text(
+                                  "${sortedItems[index].distance.toStringAsFixed(2)} km",
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    // fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 8,
+                                )
+                              ],
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.location_on,
-                          color: Colors.white,
-                          size: 18,
-                        ),
-                        Text(
-                          "${items[index].distance.round()} km",
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              );
-            }),
+                    );
+                  }),
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _showFilterModal(context),
+        backgroundColor: Colors.black,
+        foregroundColor: Colors.white,
+        child: const Icon(Icons.sort_outlined),
       ),
     );
   }
@@ -176,16 +262,5 @@ class _StorePageState extends State<StorePage> {
     if (!await launchUrl(url)) {
       throw Exception('Could not launch $url');
     }
-    // try {
-    //   if (await canLaunchUrl(url)) {
-    //     await launchUrl(url);
-    //   } else {
-    //     // Handle the case where the URL cannot be launched
-    //     print('Could not launch $url');
-    //   }
-    // } catch (e) {
-    //   // Handle exceptions (e.g., PlatformException)
-    //   print('Error launching URL: $e');
-    // }
   }
 }
