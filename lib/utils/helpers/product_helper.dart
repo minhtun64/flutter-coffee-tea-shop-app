@@ -6,34 +6,11 @@ import '../../models/product_item_model.dart';
 import '../../models/product_price_model.dart';
 
 class ProductHelper {
-  static String getMediumSizePrice(ProductItem product) {
+  static double getSizePrice(ProductItem product, String size) {
     return product.prices
-            .firstWhere((price) => price.size == 'M',
-                orElse: () => ProductPrice(size: '', price: '0'))
-            .price
-            .isNotEmpty
-        ? product.prices.firstWhere((price) => price.size == 'M').price
-        : '0';
-  }
-
-  static String getSmallSizePrice(ProductItem product) {
-    return product.prices
-            .firstWhere((price) => price.size == 'S',
-                orElse: () => ProductPrice(size: '', price: '0'))
-            .price
-            .isNotEmpty
-        ? product.prices.firstWhere((price) => price.size == 'S').price
-        : '0';
-  }
-
-  static String getLargeSizePrice(ProductItem product) {
-    return product.prices
-            .firstWhere((price) => price.size == 'L',
-                orElse: () => ProductPrice(size: '', price: '0'))
-            .price
-            .isNotEmpty
-        ? product.prices.firstWhere((price) => price.size == 'L').price
-        : '0';
+        .firstWhere((price) => price.size == size,
+            orElse: () => ProductPrice(size: '', price: 0.0))
+        .price;
   }
 
   static String getMainImagePath(ProductItem product) {
@@ -71,8 +48,8 @@ class ProductHelper {
     return imagePaths;
   }
 
-  static String formatPrice(String price) {
+  static String formatPrice(double price) {
     final priceFormat = NumberFormat.currency(locale: 'vi_VN', symbol: '');
-    return '${priceFormat.format(int.parse(price))}đ';
+    return '${priceFormat.format(price)}đ';
   }
 }

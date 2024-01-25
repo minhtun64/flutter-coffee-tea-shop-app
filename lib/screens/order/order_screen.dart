@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import '../../models/product_item_model.dart';
+import '../../utils/common_widgets/cart_icon.dart';
 import '../../utils/helpers/removeDiacritics.dart';
 import '../../values/app_colors.dart';
 import '../../values/app_strings.dart';
 import '../../values/app_theme.dart';
 import 'widgets/order_banner.dart';
-// import 'widgets/order_product_widget.dart';
 import 'widgets/order_product_tab.dart';
-// import 'widgets/order_search.dart';
 import 'widgets/order_tabbar.dart';
 
 enum SortOption {
@@ -70,16 +69,11 @@ class _OrderPageState extends State<OrderPage> {
                         onChanged: onSearchTextChanged,
                       ),
                     ),
-                    actions: <Widget>[
-                      IconButton(
-                        icon: const IconTheme(
-                            data: IconThemeData(color: Colors.white),
-                            child: Icon(
-                              Icons.shopping_bag_outlined,
-                              size: 32,
-                            )),
-                        onPressed: () {},
-                      ),
+                    actions: const <Widget>[
+                      CartIcon(),
+                      SizedBox(
+                        width: 8,
+                      )
                     ],
                   ),
                 ),

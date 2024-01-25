@@ -11,7 +11,7 @@ class HomeSpecialOffer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<ProductItem> saleProductItems =
-        productItems.where((product) => product.oriPrice != '').toList();
+        productItems.where((product) => product.initialPrice != 0).toList();
 
     return Column(
       children: [

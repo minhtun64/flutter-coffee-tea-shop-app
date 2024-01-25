@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import '../../utils/common_widgets/cart_icon.dart';
 import '../../values/app_colors.dart';
 import '../../values/app_theme.dart';
 import 'widgets/home_delivery_address_widget.dart';
@@ -15,6 +15,8 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
+
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -38,16 +40,10 @@ class HomePage extends StatelessWidget {
                 ),
               ],
             ),
-            IconButton(
-                onPressed: () {},
-                icon: const IconTheme(
-                  data: IconThemeData(color: Colors.white),
-                  child: Icon(Icons.shopping_bag_outlined, size: 32),
-                ))
+            const CartIcon(),
           ],
         ),
-        // shadowColor: const Color.fromARGB(255, 175, 29, 243),
-        // elevation: 8,
+        // s: 8,
         automaticallyImplyLeading: false,
         flexibleSpace: Container(
           decoration: const BoxDecoration(

@@ -3,22 +3,25 @@ import 'package:flutter/material.dart';
 import '../../../utils/helpers/product_helper.dart';
 
 class ProductSizeChoice extends StatefulWidget {
-  final String sPrice;
-  final String mPrice;
-  final String lPrice;
+  final double sPrice;
+  final double mPrice;
+  final double lPrice;
+  final Function(String) onSizeSelected;
 
   const ProductSizeChoice(
       {super.key,
       required this.sPrice,
       required this.mPrice,
-      required this.lPrice});
+      required this.lPrice,
+      required this.onSizeSelected});
 
   @override
   State<ProductSizeChoice> createState() => _ProductSizeChoiceState();
 }
 
 class _ProductSizeChoiceState extends State<ProductSizeChoice> {
-  String selectedSize = 'Medium'; // Default selected size
+  String selectedSize = 'M'; // Default selected size
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -55,11 +58,12 @@ class _ProductSizeChoiceState extends State<ProductSizeChoice> {
               Text(ProductHelper.formatPrice(widget.lPrice)),
             ],
           ),
-          value: 'Large',
+          value: 'L',
           groupValue: selectedSize,
           onChanged: (value) {
             setState(() {
               selectedSize = value!;
+              widget.onSizeSelected(value);
             });
           },
           controlAffinity:
@@ -73,11 +77,12 @@ class _ProductSizeChoiceState extends State<ProductSizeChoice> {
               Text(ProductHelper.formatPrice(widget.mPrice)),
             ],
           ),
-          value: 'Medium',
+          value: 'M',
           groupValue: selectedSize,
           onChanged: (value) {
             setState(() {
               selectedSize = value!;
+              widget.onSizeSelected(value);
             });
           },
           controlAffinity:
@@ -91,11 +96,12 @@ class _ProductSizeChoiceState extends State<ProductSizeChoice> {
               Text(ProductHelper.formatPrice(widget.sPrice)),
             ],
           ),
-          value: 'Small',
+          value: 'S',
           groupValue: selectedSize,
           onChanged: (value) {
             setState(() {
               selectedSize = value!;
+              widget.onSizeSelected(value);
             });
           },
           controlAffinity:
