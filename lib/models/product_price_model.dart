@@ -1,6 +1,6 @@
 class ProductPrice {
   final String size;
-  final String price;
+  final double price;
 
   ProductPrice({
     required this.size,

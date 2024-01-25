@@ -285,19 +285,16 @@ class _OrderSortFilterModalState extends State<OrderSortFilterModal> {
     } else if (selectedSortOption == 'sortZA') {
       filteredItems.sort((a, b) => b.name.compareTo(a.name));
     } else if (selectedSortOption == 'sortLowToHigh') {
-      filteredItems.sort((a, b) =>
-          double.parse(ProductHelper.getMediumSizePrice(a))
-              .compareTo(double.parse(ProductHelper.getMediumSizePrice(b))));
+      filteredItems.sort((a, b) => ProductHelper.getSizePrice(a, 'M')
+          .compareTo(ProductHelper.getSizePrice(b, 'M')));
     } else if (selectedSortOption == 'sortHighToLow') {
-      filteredItems.sort((a, b) =>
-          double.parse(ProductHelper.getMediumSizePrice(b))
-              .compareTo(double.parse(ProductHelper.getMediumSizePrice(a))));
+      filteredItems.sort((a, b) => ProductHelper.getSizePrice(b, 'M')
+          .compareTo(ProductHelper.getSizePrice(a, 'M')));
     }
 
     // Lọc theo giá
     filteredItems = filteredItems.where((product) {
-      double mediumSizePrice =
-          double.tryParse(ProductHelper.getMediumSizePrice(product)) ?? 0;
+      double mediumSizePrice = ProductHelper.getSizePrice(product, 'M');
       return mediumSizePrice >= _minPrice && mediumSizePrice <= _maxPrice;
     }).toList();
 

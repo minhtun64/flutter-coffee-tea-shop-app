@@ -8,15 +8,15 @@ class ProductDetail extends StatefulWidget {
   final String name;
   final String descr;
 
-  final String price;
-  final String oriPrice;
+  final double price;
+  final double initialPrice;
 
   const ProductDetail(
       {super.key,
       required this.name,
       required this.descr,
       required this.price,
-      required this.oriPrice});
+      required this.initialPrice});
 
   @override
   State<ProductDetail> createState() => _ProductDetailState();
@@ -56,9 +56,9 @@ class _ProductDetailState extends State<ProductDetail> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            if (widget.oriPrice != '') ...[
+            if (widget.initialPrice != 0) ...[
               Text(
-                ProductHelper.formatPrice(widget.oriPrice),
+                ProductHelper.formatPrice(widget.initialPrice),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(

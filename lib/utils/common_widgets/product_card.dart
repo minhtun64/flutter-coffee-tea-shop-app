@@ -72,17 +72,16 @@ class _ProductCardState extends State<ProductCard> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        ProductHelper.formatPrice(
-                            ProductHelper.getMediumSizePrice(
-                                widget.productItem)),
+                        ProductHelper.formatPrice(ProductHelper.getSizePrice(
+                            widget.productItem, 'M')),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: AppTheme.body_Small_Bold_Red,
                       ),
-                      if (widget.productItem.oriPrice != '') ...[
+                      if (widget.productItem.initialPrice != 0) ...[
                         Text(
                           ProductHelper.formatPrice(
-                              widget.productItem.oriPrice),
+                              widget.productItem.initialPrice),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: AppTheme.body_Small_Thin_Black_LineThrough,

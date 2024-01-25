@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import 'providers/cart_provider.dart';
 import 'routes.dart';
 import 'utils/helpers/navigation_helper.dart';
 import 'utils/helpers/snackbar_helper.dart';
@@ -11,13 +13,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.themeData,
-      initialRoute: AppRoutes.login,
-      scaffoldMessengerKey: SnackbarHelper.key,
-      navigatorKey: NavigationHelper.key,
-      onGenerateRoute: Routes.generateRoute,
+    return ChangeNotifierProvider(
+      create: (_) => CartProvider(),
+      child: Builder(builder: (context) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.themeData,
+          initialRoute: AppRoutes.navigate_home,
+          scaffoldMessengerKey: SnackbarHelper.key,
+          navigatorKey: NavigationHelper.key,
+          onGenerateRoute: Routes.generateRoute,
+        );
+      }),
     );
   }
 }
