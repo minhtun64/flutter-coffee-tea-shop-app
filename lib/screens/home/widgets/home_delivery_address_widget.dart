@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../values/app_colors.dart';
 import '../../../values/app_strings.dart';
 import '../../../values/app_theme.dart';
+import '../../delivery_address/delivery_address_screen.dart';
 
 class HomeDeliveryAddressWidget extends StatelessWidget {
   const HomeDeliveryAddressWidget({super.key});
@@ -32,7 +33,13 @@ class HomeDeliveryAddressWidget extends StatelessWidget {
           width: 10,
         ),
         InkWell(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const DeliveryAddressPage()),
+            );
+          },
           child: SizedBox(
             width: MediaQuery.of(context).size.width - 90,
             child: const Column(
