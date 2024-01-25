@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../values/app_strings.dart';
 import '../../bottomTabsNavigation/bottomTabsNavigation.dart';
+import '../../store/store_screen.dart';
 import 'home_option_button.dart';
 
 class HomeOptions extends StatelessWidget {
@@ -53,8 +54,10 @@ class HomeOptions extends StatelessWidget {
               label: AppStrings.store,
               icon: Icons.store,
               onTap: () {
-                // Handle Store button press
-                print("Store button pressed");
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const StorePage()),
+                );
               },
             ),
           ],
