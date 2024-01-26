@@ -4,6 +4,7 @@ import 'package:geolocator/geolocator.dart';
 
 import '../../models/store_model.dart';
 import '../../values/app_colors.dart';
+import 'widgets/delivery_store_step.dart';
 
 class DeliveryStorePage extends StatefulWidget {
   final double deliveryLat;
@@ -58,9 +59,9 @@ class _DeliveryStorePageState extends State<DeliveryStorePage> {
             ),
           ],
         ),
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(60),
-          child: _buildDeliveryStep(),
+        bottom: const PreferredSize(
+          preferredSize: Size.fromHeight(60),
+          child: DeliverStoreStep(),
         ),
       ),
       body: Padding(
@@ -171,54 +172,6 @@ class _DeliveryStorePageState extends State<DeliveryStorePage> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-    );
-  }
-
-  Widget _buildDeliveryStep() {
-    return Row(
-      children: [
-        _buildStep(1, 'Địa chỉ giao hàng', true),
-        Container(
-          width: 100,
-          height: 0.5,
-          color: AppColors.primaryColor,
-        ),
-        _buildStep(2, 'Cửa hàng giao hàng', true),
-      ],
-    );
-  }
-
-  Widget _buildStep(int number, String text, bool isActive) {
-    return Expanded(
-      child: Column(
-        children: [
-          const SizedBox(height: 8),
-          SizedBox(
-            height: 26,
-            child: CircleAvatar(
-              backgroundColor: isActive ? AppColors.primaryColor : Colors.grey,
-              child: Text(
-                number.toString(),
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            text,
-            style: TextStyle(
-              color: isActive ? AppColors.primaryColor : Colors.grey,
-              // fontWeight: FontWeight.bold,
-              fontSize: 12,
-            ),
-          ),
-          const SizedBox(height: 8),
-        ],
-      ),
     );
   }
 }

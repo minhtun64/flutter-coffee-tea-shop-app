@@ -3,6 +3,7 @@ import 'package:geocoding/geocoding.dart';
 
 import '../../values/app_colors.dart';
 import '../delivery_store/delivery_store_screen.dart';
+import 'widgets/delivery_address_step.dart';
 
 class DeliveryAddressPage extends StatefulWidget {
   const DeliveryAddressPage({Key? key}) : super(key: key);
@@ -13,14 +14,19 @@ class DeliveryAddressPage extends StatefulWidget {
 
 class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
   final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _noteController = TextEditingController();
+
   double deliveryLat = 0.0;
   double deliveryLng = 0.0;
 
   bool isDefaultAddress = false;
+  bool isContinueEnabled = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.scaffoldBackgroundColor,
       appBar: AppBar(
         title: const Column(
           children: [
@@ -30,9 +36,9 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
             ),
           ],
         ),
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(60),
-          child: _buildDeliveryStep(),
+        bottom: const PreferredSize(
+          preferredSize: Size.fromHeight(60),
+          child: DeliverAddressStep(),
         ),
       ),
       body: SingleChildScrollView(
@@ -49,22 +55,37 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
               const SizedBox(height: 4),
               TextField(
                 controller: _addressController,
+                autofocus: true,
                 onEditingComplete: () {
-                  locationFromAddress(_addressController.text)
-                      .then((locations) {
-                    var latitude = 0.0;
-                    var longitude = 0.0;
-                    if (locations.isNotEmpty) {
-                      latitude = locations[0].latitude;
-                      longitude = locations[0].longitude;
-                    }
-                    print(latitude);
-                    print(longitude);
+                  try {
+                    locationFromAddress(_addressController.text)
+                        .then((locations) {
+                      var latitude = 0.0;
+                      var longitude = 0.0;
+                      if (locations.isNotEmpty) {
+                        latitude = locations[0].latitude;
+                        longitude = locations[0].longitude;
+                      }
+                      print(latitude);
+                      print(longitude);
 
-                    setState(() {
-                      deliveryLat = latitude;
-                      deliveryLng = longitude;
+                      setState(() {
+                        deliveryLat = latitude;
+                        deliveryLng = longitude;
+                      });
+                    }).catchError((error) {
+                      // Xử lý lỗi khi không tìm thấy địa chỉ
+                      print("Lỗi khi tìm địa chỉ: $error");
+                      // Thực hiện các hành động phù hợp với ứng dụng của bạn, ví dụ: thông báo cho người dùng.
                     });
+                  } catch (error) {
+                    print("Lỗi xử lý địa chỉ: $error");
+                    // Thực hiện các hành động phù hợp với ứng dụng của bạn khi có lỗi.
+                  }
+                },
+                onChanged: (value) {
+                  setState(() {
+                    isContinueEnabled = _addressController.text.isNotEmpty;
                   });
                 },
                 decoration: InputDecoration(
@@ -82,11 +103,11 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                 ),
               ),
               const SizedBox(height: 16),
-              _buildTextField(
-                  'Tên địa chỉ', 'Nhà/ Cơ quan/ Trường học/ ...', Icons.home),
+              _buildTextField('Tên địa chỉ', 'Nhà/ Cơ quan/ Trường học/ ...',
+                  _nameController, Icons.home),
               const SizedBox(height: 16),
-              _buildTextField(
-                  'Ghi chú khác', 'Số nhà/ Toà nhà/ ...', Icons.edit),
+              _buildTextField('Ghi chú khác', 'Số nhà/ Toà nhà/ ...',
+                  _noteController, Icons.edit),
               const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -114,82 +135,44 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
         style: ButtonStyle(
           minimumSize: MaterialStateProperty.all(
               Size(MediaQuery.of(context).size.width * 0.9, 50)),
-          backgroundColor: MaterialStateProperty.all(AppColors.primaryColor),
+          backgroundColor: isContinueEnabled
+              ? MaterialStateProperty.all(AppColors.primaryColor)
+              : MaterialStateProperty.all(Colors.grey[300]),
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
           ),
         ),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => DeliveryStorePage(
-                    deliveryLat: deliveryLat, deliveryLng: deliveryLng)),
-          );
-        },
-        child: const Text(
+        onPressed: isContinueEnabled
+            ? () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DeliveryStorePage(
+                      deliveryLat: deliveryLat,
+                      deliveryLng: deliveryLng,
+                      // address: _addressController.text,
+                      // name: _nameController.text,
+                      // note: _noteController.text,
+                    ),
+                  ),
+                );
+              }
+            : null, // Nếu nút Tiếp tục không được kích hoạt, đặt giá trị onPressed là null
+        child: Text(
           'Tiếp tục',
           style: TextStyle(
-            color: Colors.white,
+            color: isContinueEnabled ? Colors.white : Colors.grey[600],
             fontSize: 18,
           ),
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
-  Widget _buildDeliveryStep() {
-    return Row(
-      children: [
-        _buildStep(1, 'Địa chỉ giao hàng', true),
-        Container(
-          width: 100,
-          height: 0.5,
-          color: Colors.grey,
-        ),
-        _buildStep(2, 'Cửa hàng giao hàng', false),
-      ],
-    );
-  }
-
-  Widget _buildStep(int number, String text, bool isActive) {
-    return Expanded(
-      child: Column(
-        children: [
-          const SizedBox(height: 8),
-          SizedBox(
-            height: 26,
-            child: CircleAvatar(
-              backgroundColor: isActive ? AppColors.primaryColor : Colors.grey,
-              child: Text(
-                number.toString(),
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            text,
-            style: TextStyle(
-              color: isActive ? AppColors.primaryColor : Colors.grey,
-              // fontWeight: FontWeight.bold,
-              fontSize: 12,
-            ),
-          ),
-          const SizedBox(height: 8),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildTextField(String title, String label, IconData icon) {
+  Widget _buildTextField(String title, String label,
+      TextEditingController controller, IconData icon) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -199,13 +182,14 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
             )),
         const SizedBox(height: 4),
         TextField(
+          controller: controller,
           decoration: InputDecoration(
             hintText: label,
             hintStyle: const TextStyle(
                 fontWeight: FontWeight.normal, color: Colors.grey),
             suffixIcon: IconButton(
               onPressed: () {
-                // Xử lý khi nhấn icon x
+                controller.clear();
               },
               icon: const Icon(Icons.clear, size: 16),
             ),

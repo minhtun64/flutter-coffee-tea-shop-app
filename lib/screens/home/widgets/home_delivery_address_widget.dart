@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../values/app_colors.dart';
 import '../../../values/app_strings.dart';
 import '../../../values/app_theme.dart';
+import '../../choose_address/choose_address_screen.dart';
 import '../../delivery_address/delivery_address_screen.dart';
 
 class HomeDeliveryAddressWidget extends StatelessWidget {
@@ -37,7 +38,7 @@ class HomeDeliveryAddressWidget extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => const DeliveryAddressPage()),
+                  builder: (context) => const ChooseAddressPage()),
             );
           },
           child: SizedBox(

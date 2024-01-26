@@ -102,6 +102,14 @@ geolocator_windows
 2.15
 file:///Users/minhtuandang/.pub-cache/hosted/pub.dev/geolocator_windows-0.2.2/
 file:///Users/minhtuandang/.pub-cache/hosted/pub.dev/geolocator_windows-0.2.2/lib/
+http
+3.2
+file:///Users/minhtuandang/.pub-cache/hosted/pub.dev/http-1.2.0/
+file:///Users/minhtuandang/.pub-cache/hosted/pub.dev/http-1.2.0/lib/
+http_parser
+2.12
+file:///Users/minhtuandang/.pub-cache/hosted/pub.dev/http_parser-4.0.2/
+file:///Users/minhtuandang/.pub-cache/hosted/pub.dev/http_parser-4.0.2/lib/
 intl
 2.12
 file:///Users/minhtuandang/.pub-cache/hosted/pub.dev/intl-0.17.0/

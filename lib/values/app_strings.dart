@@ -59,4 +59,6 @@ class AppStrings {
   static const String sortBy = 'Sắp xếp theo';
   static const String price = 'Giá';
   static const String apply = 'Áp dụng';
+
+  static const String mapAPIKey = 'AIzaSyDzUvOvvKbwwUnZaJRgdN-AjLXq5K_-UO4';
 }
