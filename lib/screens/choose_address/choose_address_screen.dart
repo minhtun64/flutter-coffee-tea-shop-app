@@ -4,6 +4,8 @@ import 'package:flutter_coffee_tea_shop_app/values/app_strings.dart';
 import '../../models/auto_complete_prediction.dart';
 import '../../models/place_auto_complete_response.dart';
 import '../../utils/network_utility.dart';
+import '../../values/app_colors.dart';
+import '../delivery_address/delivery_address_screen.dart';
 import '../order/widgets/location_list_tile.dart';
 
 class ChooseAddressPage extends StatefulWidget {
@@ -52,24 +54,34 @@ class _ChooseAddressPageState extends State<ChooseAddressPage> {
             child: Padding(
               padding: const EdgeInsets.all(12),
               child: TextFormField(
-                controller: _addressController,
-                onChanged: (value) {
-                  placeAutoComplete(value);
-                },
-                textInputAction: TextInputAction.search,
-                decoration: const InputDecoration(
+                  controller: _addressController,
+                  onChanged: (value) {
+                    placeAutoComplete(value);
+                  },
+                  textInputAction: TextInputAction.search,
+                  decoration: InputDecoration(
                     hintText: 'Tìm địa chỉ',
-                    prefixIcon: Padding(
+                    prefixIcon: const Padding(
                       padding: EdgeInsets.symmetric(vertical: 12),
-                      child: Icon(Icons.location_on_outlined),
-                    )),
-              ),
+                      child: Icon(Icons.search, color: AppColors.primaryColor),
+                    ),
+                    filled: true, // Đặt giá trị filled là true để có màu nền
+                    fillColor: AppColors.scaffoldBackgroundColor,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+
+                      borderSide:
+                          const BorderSide(color: AppColors.primaryColor), //
+                    ),
+                  ) // Chọn màu nền ở đây
+
+                  ),
             ),
           ),
           if (_addressController.text.isEmpty) ...[
             const Divider(
               height: 4,
-              thickness: 2,
+              thickness: 1,
             ),
             Padding(
               padding: const EdgeInsets.all(12),
@@ -77,20 +89,40 @@ class _ChooseAddressPageState extends State<ChooseAddressPage> {
                 onPressed: () {
                   // placeAutoComplete('Dubai');
                 },
-                icon: const Icon(Icons.location_disabled_outlined),
+                icon: const Icon(Icons.my_location),
                 label: const Text('Sử dụng vị trí hiện tại của tôi'),
               ),
             ),
             const Divider(
               height: 4,
-              thickness: 2,
+              thickness: 1,
+            ),
+            const SizedBox(
+              width: double.infinity,
+              child: Padding(
+                padding: EdgeInsets.all(12.0),
+                child: Text('Địa chỉ đã lưu',
+                    style: TextStyle(
+                      color: AppColors.primaryColor,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    )),
+              ),
             ),
           ],
           Expanded(
             child: ListView.builder(
                 itemCount: placePredictions.length,
                 itemBuilder: ((context, index) => LocationListTile(
-                      press: () {},
+                      press: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => DeliveryAddressPage(
+                                  location:
+                                      placePredictions[index].description!)),
+                        );
+                      },
                       location: placePredictions[index].description!,
                     ))),
           ),

@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 
 import '../../values/app_colors.dart';
+import '../choose_address/choose_address_screen.dart';
 import '../delivery_store/delivery_store_screen.dart';
 import 'widgets/delivery_address_step.dart';
 
 class DeliveryAddressPage extends StatefulWidget {
-  const DeliveryAddressPage({Key? key}) : super(key: key);
+  const DeliveryAddressPage({Key? key, required this.location})
+      : super(key: key);
+
+  final String location;
 
   @override
   _DeliveryAddressPageState createState() => _DeliveryAddressPageState();
@@ -21,7 +25,13 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
   double deliveryLng = 0.0;
 
   bool isDefaultAddress = false;
-  bool isContinueEnabled = false;
+  bool isContinueEnabled = true;
+
+  @override
+  void initState() {
+    _addressController.text = widget.location;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,11 +63,19 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                     fontWeight: FontWeight.bold,
                   )),
               const SizedBox(height: 4),
-              TextField(
-                controller: _addressController,
-                autofocus: true,
-                onEditingComplete: () {
-                  try {
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ChooseAddressPage()),
+                  );
+                },
+                child: TextField(
+                  enabled: false,
+                  controller: _addressController,
+                  // autofocus: true,
+                  onEditingComplete: () {
                     locationFromAddress(_addressController.text)
                         .then((locations) {
                       var latitude = 0.0;
@@ -66,40 +84,40 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
                         latitude = locations[0].latitude;
                         longitude = locations[0].longitude;
                       }
-                      print(latitude);
-                      print(longitude);
-
                       setState(() {
                         deliveryLat = latitude;
                         deliveryLng = longitude;
                       });
-                    }).catchError((error) {
-                      // Xử lý lỗi khi không tìm thấy địa chỉ
-                      print("Lỗi khi tìm địa chỉ: $error");
-                      // Thực hiện các hành động phù hợp với ứng dụng của bạn, ví dụ: thông báo cho người dùng.
                     });
-                  } catch (error) {
-                    print("Lỗi xử lý địa chỉ: $error");
-                    // Thực hiện các hành động phù hợp với ứng dụng của bạn khi có lỗi.
-                  }
-                },
-                onChanged: (value) {
-                  setState(() {
-                    isContinueEnabled = _addressController.text.isNotEmpty;
-                  });
-                },
-                decoration: InputDecoration(
-                  hintText: 'Tên đường, phường/xã, quận/huyện, tỉnh thành',
-                  hintStyle: const TextStyle(
-                      fontWeight: FontWeight.normal, color: Colors.grey),
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      _addressController.clear();
-                    },
-                    icon: const Icon(Icons.clear, size: 16),
+                  },
+                  onChanged: (value) {
+                    setState(() {
+                      isContinueEnabled = _addressController.text.isNotEmpty;
+                    });
+                  },
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w500,
                   ),
-                  prefixIcon: const Icon(Icons.location_on),
-                  border: const OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    hintText: 'Tên đường, phường/xã, quận/huyện, tỉnh thành',
+                    hintStyle: const TextStyle(
+                        fontWeight: FontWeight.normal, color: Colors.grey),
+                    // suffixIcon: IconButton(
+                    //   onPressed: () {
+                    //     _addressController.clear();
+                    //   },
+                    //   icon: const Icon(Icons.clear, size: 16),
+                    // ),
+                    prefixIcon: const Icon(Icons.location_on),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                      borderSide: const BorderSide(
+                          color: AppColors.primaryColor,
+                          width: 0.0,
+                          strokeAlign: 2),
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(height: 16),
