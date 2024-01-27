@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_coffee_tea_shop_app/values/app_colors.dart';
 import 'package:provider/provider.dart';
 
-import '../../models/cart_model.dart';
 import '../../providers/cart_provider.dart';
 import '../../utils/helpers/db_helper.dart';
 import '../../utils/helpers/product_helper.dart';

@@ -1,0 +1,1 @@
+ /Users/minhtuandang/flutter_projects/flutter_coffee_tea_shop_app/.dart_tool/flutter_build/f6353d62ad2e42a9b47267235fb3388a/native_assets.yaml: 
