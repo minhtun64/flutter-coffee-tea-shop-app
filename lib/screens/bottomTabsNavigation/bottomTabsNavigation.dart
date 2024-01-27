@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../models/notifications_model.dart';
 import '../../values/app_colors.dart';
 import '../../values/app_strings.dart';
 import '../../values/app_theme.dart';
@@ -22,6 +23,21 @@ class BottomTabsNavigation extends StatefulWidget {
 }
 
 class _NavigationState extends State<BottomTabsNavigation> {
+  List<NotificationsItem> item = notifications;
+  int _unreadCount = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _updateUnreadCount();
+  }
+
+  void _updateUnreadCount() {
+    setState(() {
+      _unreadCount = notifications.where((n) => !n.isRead).length;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
@@ -44,8 +60,8 @@ class _NavigationState extends State<BottomTabsNavigation> {
           indicatorColor: AppColors.primaryColor,
           surfaceTintColor: Colors.white,
           selectedIndex: widget.currentPageIndex,
-          destinations: const <Widget>[
-            NavigationDestination(
+          destinations: <Widget>[
+            const NavigationDestination(
               selectedIcon: IconTheme(
                   data: IconThemeData(
                     color: Colors.white,
@@ -54,7 +70,7 @@ class _NavigationState extends State<BottomTabsNavigation> {
               icon: Icon(Icons.home_outlined),
               label: AppStrings.home,
             ),
-            NavigationDestination(
+            const NavigationDestination(
               selectedIcon: IconTheme(
                   data: IconThemeData(
                     color: Colors.white,
@@ -65,14 +81,65 @@ class _NavigationState extends State<BottomTabsNavigation> {
             ),
             NavigationDestination(
               selectedIcon: IconTheme(
-                  data: IconThemeData(
-                    color: Colors.white,
-                  ),
-                  child: Icon(Icons.notifications)),
-              icon: Icon(Icons.notifications_outlined),
+                data: const IconThemeData(
+                  color: Colors.white,
+                ),
+                child: Stack(
+                  children: [
+                    const Icon(Icons.notifications),
+                    if (_unreadCount > 0) ...[
+                      Positioned(
+                        right: 0,
+                        child: Container(
+                          height: 8,
+                          padding: const EdgeInsets.all(4),
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.red,
+                          ),
+                          // child: Text(
+                          //   _unreadCount.toString(),
+                          //   style: const TextStyle(
+                          //     color: Colors.white,
+                          //     fontWeight: FontWeight.bold,
+                          //     fontSize: 8,
+                          //   ),
+                          // ),
+                        ),
+                      )
+                    ]
+                  ],
+                ),
+              ),
+              icon: Stack(
+                children: [
+                  const Icon(Icons.notifications_outlined),
+                  if (_unreadCount > 0) ...[
+                    Positioned(
+                      right: 0,
+                      child: Container(
+                        height: 8,
+                        padding: const EdgeInsets.all(4),
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.red,
+                        ),
+                        // child: Text(
+                        //   _unreadCount.toString(),
+                        //   style: const TextStyle(
+                        //     color: Colors.white,
+                        //     fontWeight: FontWeight.bold,
+                        //     fontSize: 8,
+                        //   ),
+                        // ),
+                      ),
+                    )
+                  ]
+                ],
+              ),
               label: AppStrings.notifications,
             ),
-            NavigationDestination(
+            const NavigationDestination(
               selectedIcon: IconTheme(
                   data: IconThemeData(
                     color: Colors.white,
@@ -92,7 +159,7 @@ class _NavigationState extends State<BottomTabsNavigation> {
         const OrderPage(),
 
         /// Notifications page
-        const NotificationsPage(),
+        NotificationsPage(updateUnreadCount: _updateUnreadCount),
 
         /// Account page
         const AccountPage(),
