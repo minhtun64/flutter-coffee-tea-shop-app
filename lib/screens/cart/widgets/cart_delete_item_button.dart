@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../utils/helpers/db_helper.dart';
-
 class CartDeleteItemButton extends StatelessWidget {
   final VoidCallback onPressed;
 

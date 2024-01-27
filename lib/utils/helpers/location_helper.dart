@@ -1,16 +1,14 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'dart:math';
 import 'package:http/http.dart' as http;
-
-import 'package:dio/dio.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
 import '../../models/store_model.dart';
 import '../../values/app_strings.dart';
-import '../network_utility.dart';
 
 class LocationHelper {
   static Future<Position> getMyLocation() async {
@@ -37,7 +35,6 @@ class LocationHelper {
 
     Position? currentUserPosition = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
-
     return currentUserPosition;
   }
 
@@ -140,7 +137,7 @@ class LocationHelper {
               polylineCoordinates[i + 1].longitude);
         }
       } else {
-        totalDistance = -1;
+        totalDistance = 1000000000;
       }
       items[i].distance = totalDistance;
     }
@@ -158,8 +155,6 @@ class LocationHelper {
   static Future<Map<String, double>?> getAddressCoordinates(
       String address) async {
     try {
-      const apiKey = AppStrings.mapAPIKey;
-
       Uri uri = Uri.https('maps.googleapis.com', 'maps/api/geocode/json', {
         'place_id': address,
         'key': AppStrings.mapAPIKey,
@@ -185,7 +180,6 @@ class LocationHelper {
     } catch (e) {
       print('Đã xảy ra lỗi khi lấy toạ độ: $e');
     }
-
     // Nếu có lỗi, trả về null hoặc một giá trị mặc định khác
     return null;
   }

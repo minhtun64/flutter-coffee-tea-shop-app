@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../utils/helpers/location_helper.dart';
 import '../../values/app_colors.dart';
 import '../delivery_store/delivery_store_screen.dart';
-import '../delivery_store/widgets/custom_button.dart';
+import '../../utils/common_widgets/custom_button.dart';
 import 'widgets/delivery_address_step.dart';
 
 class DeliveryAddressPage extends StatefulWidget {

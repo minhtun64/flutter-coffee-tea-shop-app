@@ -5,8 +5,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../models/store_model.dart';
 import '../../utils/helpers/location_helper.dart';
-import '../../utils/network_utility.dart';
-import '../../values/app_strings.dart';
 
 class StorePage extends StatefulWidget {
   const StorePage({Key? key}) : super(key: key);
@@ -208,7 +206,9 @@ class _StorePageState extends State<StorePage> {
                                       size: 18,
                                     ),
                                     Text(
-                                      "${items[index].distance.toStringAsFixed(2)} km",
+                                      items[index].distance != 1000000000
+                                          ? "${items[index].distance.toStringAsFixed(2)} km"
+                                          : "Không thể tiếp cận",
                                       style: const TextStyle(
                                         fontSize: 16,
                                         color: Colors.white,

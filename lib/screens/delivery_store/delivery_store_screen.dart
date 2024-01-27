@@ -5,7 +5,7 @@ import '../../utils/helpers/navigation_helper.dart';
 import '../../values/app_colors.dart';
 import '../../values/app_routes.dart';
 import 'widgets/delivery_store_step.dart';
-import 'widgets/custom_button.dart';
+import '../../utils/common_widgets/custom_button.dart';
 
 class DeliveryStorePage extends StatefulWidget {
   final double deliveryLat;

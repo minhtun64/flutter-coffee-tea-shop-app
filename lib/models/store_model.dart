@@ -62,11 +62,11 @@ final List<StoreItem> storeItems = [
     lat: 37.7886872,
     lng: -122.4038625,
   ),
-  // StoreItem(
-  //   id: '6',
-  //   name: 'Brili Coffee ĐHQG',
-  //   image: 'assets/images/stores/store_6.jpeg',
-  //   lat: 10.8700560,
-  //   lng: 106.8026840,
-  // ),
+  StoreItem(
+    id: '6',
+    name: 'Brili Coffee ĐHQG',
+    image: 'assets/images/stores/store_6.jpeg',
+    lat: 10.8700560,
+    lng: 106.8026840,
+  ),
 ];
