@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
-
 import '../../models/store_model.dart';
+import '../../utils/helpers/location_helper.dart';
+import '../../utils/helpers/navigation_helper.dart';
 import '../../values/app_colors.dart';
+import '../../values/app_routes.dart';
 import 'widgets/delivery_store_step.dart';
+import 'widgets/custom_button.dart';
 
 class DeliveryStorePage extends StatefulWidget {
   final double deliveryLat;
@@ -17,32 +18,27 @@ class DeliveryStorePage extends StatefulWidget {
 }
 
 class _DeliveryStorePageState extends State<DeliveryStorePage> {
-  List<StoreItem> items = storeItems;
-  double? distanceImMeter = 0.0;
-
-  Future _getTheDistance() async {
-    for (int i = 0; i < items.length; i++) {
-      double storelat = items[i].lat;
-
-      double storelng = items[i].lng;
-
-      distanceImMeter = Geolocator.distanceBetween(
-        widget.deliveryLat,
-        widget.deliveryLng,
-        storelat,
-        storelng,
-      );
-      var distance = distanceImMeter?.round().toInt();
-
-      items[i].distance = (distance! / 100);
-      setState(() {});
-    }
-  }
+  late Future<List<StoreItem>> _getStoreFuture;
 
   @override
   void initState() {
-    _getTheDistance();
+    _getStoreFuture = _processStoreList(
+        LocationHelper.getStoreListWithDistanceUpdate(
+            widget.deliveryLat, widget.deliveryLng));
     super.initState();
+  }
+
+  Future<List<StoreItem>> _processStoreList(
+      Future<List<StoreItem>> storeListFuture) async {
+    List<StoreItem> storeList = await storeListFuture;
+
+    // Sắp xếp danh sách theo khoảng cách tăng dần
+    storeList = LocationHelper.sortByDistanceAscending(storeList);
+
+    // Lọc danh sách cửa hàng theo các tiêu chí khác nếu cần
+    storeList = LocationHelper.filterStoresWithinDeliveryRange(storeList);
+
+    return storeList;
   }
 
   @override
@@ -50,6 +46,7 @@ class _DeliveryStorePageState extends State<DeliveryStorePage> {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: AppColors.scaffoldBackgroundColor,
       appBar: AppBar(
         title: const Column(
           children: [
@@ -69,109 +66,141 @@ class _DeliveryStorePageState extends State<DeliveryStorePage> {
         child: Column(
           children: [
             Expanded(
-              child: GridView.builder(
-                  itemCount: items.length,
-                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 200,
-                    childAspectRatio: 3 / 3,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                  ),
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      // onTap: () => showDirection(items[index]),
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(12)),
-                          color: AppColors.cardColor,
+              child: FutureBuilder<List<StoreItem>>(
+                  future: _getStoreFuture,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      // Hiển thị tiêu đề, hoặc một tiện ích chờ khác nếu cần thiết
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (snapshot.hasError) {
+                      // Xử lý lỗi nếu có
+                      return const Center(child: Text('Đã xảy ra lỗi'));
+                    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                      // Hiển thị thông báo không có cửa hàng nếu danh sách rỗng
+                      return const Center(
+                        child: Text(
+                          'Rất tiếc, không có cửa hàng nào gần bạn.',
+                          style: TextStyle(fontSize: 14),
                         ),
-                        padding: const EdgeInsets.only(bottom: 4),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Column(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: const BorderRadius.vertical(
-                                      top: Radius.circular(12)),
-                                  child: Image(
-                                    height: height * 0.13,
-                                    width: width,
-                                    image: AssetImage(items[index].image),
-                                    fit: BoxFit.cover,
-                                  ),
+                      );
+                    } else {
+                      // Hiển thị danh sách cửa hàng
+                      List<StoreItem> items = snapshot.data!;
+                      return GridView.builder(
+                          itemCount: items.length,
+                          gridDelegate:
+                              const SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent: 200,
+                            childAspectRatio: 3 / 3,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10,
+                          ),
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              // onTap: () => showDirection(items[index]),
+                              child: Container(
+                                decoration: const BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(12)),
+                                  color: AppColors.cardColor,
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 8.0),
-                                  child: SizedBox(
-                                    width: width,
-                                    child: Text(
-                                      items[index].name,
-                                      maxLines: 2,
-                                      textAlign: TextAlign.start,
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: AppColors.primaryColor,
-                                      ),
+                                padding: const EdgeInsets.only(bottom: 4),
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius:
+                                              const BorderRadius.vertical(
+                                                  top: Radius.circular(12)),
+                                          child: Image(
+                                            height: height * 0.13,
+                                            width: width,
+                                            image:
+                                                AssetImage(items[index].image),
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 8.0),
+                                          child: SizedBox(
+                                            width: width,
+                                            child: Text(
+                                              items[index].name,
+                                              maxLines: 2,
+                                              textAlign: TextAlign.start,
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                                color: AppColors.primaryColor,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        const Icon(
+                                          Icons.location_on,
+                                          color: Colors.white,
+                                          size: 18,
+                                        ),
+                                        Text(
+                                          "${items[index].distance.toStringAsFixed(2)} km",
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            // fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 8,
+                                        )
+                                      ],
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                const Icon(
-                                  Icons.location_on,
-                                  color: Colors.white,
-                                  size: 18,
-                                ),
-                                Text(
-                                  "${items[index].distance.toStringAsFixed(2)} km",
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    // fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 8,
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
+                              ),
+                            );
+                          });
+                    }
                   }),
             ),
           ],
         ),
       ),
-      floatingActionButton: ElevatedButton(
-        style: ButtonStyle(
-          minimumSize: MaterialStateProperty.all(
-              Size(MediaQuery.of(context).size.width * 0.9, 50)),
-          backgroundColor: MaterialStateProperty.all(AppColors.primaryColor),
-          shape: MaterialStateProperty.all(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
-        ),
-        onPressed: () {},
-        child: const Text(
-          'Tiếp tục',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 18,
-          ),
-        ),
+      floatingActionButton: FutureBuilder<List<StoreItem>>(
+        future: _getStoreFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const CustomButton(
+              onPressed: null,
+              text: 'Tiếp tục',
+              isLoading: true,
+            );
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return CustomButton(
+              onPressed: () => NavigationHelper.pushReplacementNamed(
+                AppRoutes.navigate_home,
+              ),
+              text: 'Quay lại',
+            );
+          } else {
+            return CustomButton(
+              onPressed: () {
+                // Xử lý sự kiện khi nút Tiếp tục được nhấn
+              },
+              text: 'Tiếp tục',
+            );
+          }
+        },
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

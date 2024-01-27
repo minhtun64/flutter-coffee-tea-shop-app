@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_coffee_tea_shop_app/values/app_colors.dart';
-import 'package:flutter_coffee_tea_shop_app/values/app_theme.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 import '../../models/store_model.dart';
+import '../../utils/helpers/location_helper.dart';
+import '../../utils/network_utility.dart';
+import '../../values/app_strings.dart';
 
 class StorePage extends StatefulWidget {
   const StorePage({Key? key}) : super(key: key);
@@ -14,54 +17,26 @@ class StorePage extends StatefulWidget {
 
 class _StorePageState extends State<StorePage> {
   Position? _currentUserPosition;
-  double? distanceImMeter = 0.0;
-  List<StoreItem> items = storeItems;
+  List<StoreItem> items = [];
+  String selectedFilter = '';
 
-  Future _getTheDistance() async {
-    bool serviceEnabled;
-    LocationPermission permission;
+  late Future<List<StoreItem>> _getTheDistanceFuture;
 
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      return Future.error('Location services are disabled');
-    }
+  Future<List<StoreItem>> _getTheDistance() async {
+    _currentUserPosition = await LocationHelper.getMyLocation();
 
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        return Future.error('Location permissions are denied');
-      }
-    }
+    return LocationHelper.getStoreListWithDistanceUpdate(
+        _currentUserPosition!.latitude, _currentUserPosition!.longitude);
+  }
 
-    if (permission == LocationPermission.deniedForever) {
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
-    }
-
-    _currentUserPosition = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    print(_currentUserPosition!.latitude);
-    for (int i = 0; i < items.length; i++) {
-      double storelat = items[i].lat;
-
-      double storelng = items[i].lng;
-
-      distanceImMeter = Geolocator.distanceBetween(
-        _currentUserPosition!.latitude,
-        _currentUserPosition!.longitude,
-        storelat,
-        storelng,
-      );
-      var distance = distanceImMeter?.round().toInt();
-
-      items[i].distance = (distance! / 100);
-      setState(() {});
+  void _sortItems() {
+    if (selectedFilter == 'nearest') {
+      items = LocationHelper.sortByDistanceAscending(items);
+    } else {
+      items = LocationHelper.sortByDistanceDescending(items);
     }
   }
 
-  String? selectedFilter;
-  List<StoreItem> sortedItems = [];
   void _showFilterModal(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -80,10 +55,11 @@ class _StorePageState extends State<StorePage> {
                 title: const Text('Gần nhất'),
                 value: 'nearest',
                 groupValue: selectedFilter,
-                onChanged: (String? value) {
+                onChanged: (value) {
                   setState(() {
-                    selectedFilter = value;
-                    sortedItems = sortItems(selectedFilter!);
+                    selectedFilter = value as String;
+                    _sortItems();
+                    // sortedItems = sortItems(selectedFilter!);
                   });
                   Navigator.pop(context);
                 },
@@ -92,10 +68,11 @@ class _StorePageState extends State<StorePage> {
                 title: const Text('Xa nhất'),
                 value: 'furthest',
                 groupValue: selectedFilter,
-                onChanged: (String? value) {
+                onChanged: (value) {
                   setState(() {
-                    selectedFilter = value;
-                    sortedItems = sortItems(selectedFilter!);
+                    selectedFilter = value as String;
+                    _sortItems();
+                    // sortedItems = sortItems(selectedFilter!);
                   });
                   Navigator.pop(context);
                 },
@@ -107,23 +84,10 @@ class _StorePageState extends State<StorePage> {
     );
   }
 
-  List<StoreItem> sortItems(String filter) {
-    // Sắp xếp danh sách items dựa trên lựa chọn
-    if (filter == 'nearest') {
-      return items..sort((a, b) => a.distance.compareTo(b.distance));
-    } else if (filter == 'furthest') {
-      return items..sort((a, b) => b.distance.compareTo(a.distance));
-    }
-
-    // Nếu lựa chọn không hợp lệ, trả về danh sách không thay đổi
-    return items;
-  }
-
   @override
   void initState() {
-    _getTheDistance();
+    _getTheDistanceFuture = _getTheDistance();
     selectedFilter = 'nearest';
-    sortedItems = sortItems(selectedFilter!);
     super.initState();
   }
 
@@ -163,85 +127,107 @@ class _StorePageState extends State<StorePage> {
             const SizedBox(
               height: 12,
             ),
-            Expanded(
-              child: GridView.builder(
-                  itemCount: sortedItems.length,
-                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 200,
-                    childAspectRatio: 3 / 3,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                  ),
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () => showDirection(sortedItems[index]),
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(12)),
-                          color: AppColors.cardColor,
-                        ),
-                        padding: const EdgeInsets.only(bottom: 4),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Column(
+            FutureBuilder<List<StoreItem>>(
+              future: _getTheDistanceFuture,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  // Nếu đang chờ dữ liệu, hiển thị tiêu đề loading hoặc bạn có thể thực hiện một hành động khác
+                  return const CircularProgressIndicator();
+                } else if (snapshot.hasError || snapshot.data == null) {
+                  // Nếu có lỗi hoặc danh sách rỗng, hiển thị thông báo lỗi hoặc một thông báo khác
+                  return const Center(
+                    child: Text(
+                      'Rất tiếc, có lỗi xảy ra.',
+                      style: TextStyle(fontSize: 14),
+                    ),
+                  );
+                } else {
+                  // Nếu có dữ liệu, hiển thị danh sách cửa hàng
+                  items = snapshot.data!;
+                  return Expanded(
+                    child: GridView.builder(
+                      itemCount: items.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithMaxCrossAxisExtent(
+                        maxCrossAxisExtent: 200,
+                        childAspectRatio: 3 / 3,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                      ),
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () => showDirection(items[index]),
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(12)),
+                              color: AppColors.cardColor,
+                            ),
+                            padding: const EdgeInsets.only(bottom: 4),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                ClipRRect(
-                                  borderRadius: const BorderRadius.vertical(
-                                      top: Radius.circular(12)),
-                                  child: Image(
-                                    height: height * 0.13,
-                                    width: width,
-                                    image: AssetImage(sortedItems[index].image),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 8.0),
-                                  child: SizedBox(
-                                    width: width,
-                                    child: Text(
-                                      sortedItems[index].name,
-                                      maxLines: 2,
-                                      textAlign: TextAlign.start,
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: AppColors.primaryColor,
+                                Column(
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: const BorderRadius.vertical(
+                                          top: Radius.circular(12)),
+                                      child: Image(
+                                        height: height * 0.13,
+                                        width: width,
+                                        image: AssetImage(items[index].image),
+                                        fit: BoxFit.cover,
                                       ),
                                     ),
-                                  ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8.0),
+                                      child: SizedBox(
+                                        width: width,
+                                        child: Text(
+                                          items[index].name,
+                                          maxLines: 2,
+                                          textAlign: TextAlign.start,
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                            color: AppColors.primaryColor,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    const Icon(
+                                      Icons.location_on,
+                                      color: Colors.white,
+                                      size: 18,
+                                    ),
+                                    Text(
+                                      "${items[index].distance.toStringAsFixed(2)} km",
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 8,
+                                    )
+                                  ],
                                 ),
                               ],
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                const Icon(
-                                  Icons.location_on,
-                                  color: Colors.white,
-                                  size: 18,
-                                ),
-                                Text(
-                                  "${sortedItems[index].distance.toStringAsFixed(2)} km",
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    // fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 8,
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  }),
+                          ),
+                        );
+                      },
+                    ),
+                  );
+                }
+              },
             ),
           ],
         ),

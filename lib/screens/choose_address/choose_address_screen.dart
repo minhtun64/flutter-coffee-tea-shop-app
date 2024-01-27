@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_coffee_tea_shop_app/values/app_strings.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 
 import '../../models/auto_complete_prediction.dart';
 import '../../models/place_auto_complete_response.dart';
@@ -18,14 +20,67 @@ class ChooseAddressPage extends StatefulWidget {
 class _ChooseAddressPageState extends State<ChooseAddressPage> {
   List<AutocompletePrediction> placePredictions = [];
   final TextEditingController _addressController = TextEditingController();
+  // String address = '';
+
+  Position? _currentUserPosition;
+  Future _getMyAddressName() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    _currentUserPosition = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+
+    placemarkFromCoordinates(
+            _currentUserPosition!.latitude, _currentUserPosition!.longitude)
+        .then((placemarks) {
+      var output = 'No results found.';
+      if (placemarks.isNotEmpty) {
+        print(placemarks[0].toString());
+        output =
+            '${placemarks[0].street}, ${placemarks[0].locality}, ${placemarks[0].administrativeArea}, ${placemarks[0].country}';
+      }
+
+      // setState(() {
+      //   location = output;
+      // });
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => DeliveryAddressPage(
+                deliveryMyLat: _currentUserPosition!.latitude,
+                deliveryMyLng: _currentUserPosition!.longitude,
+                address: output)),
+      );
+    });
+  }
 
   void placeAutoComplete(String query) async {
     Uri uri =
         Uri.https('maps.googleapis.com', 'maps/api/place/autocomplete/json', {
       'input': query,
       'key': AppStrings.mapAPIKey,
+      'components': 'country:vn',
     });
     String? response = await NetworkUtility.fetchUrl(uri);
+    // print(response);
     if (response != null) {
       PlaceAutocompleteResponse result =
           PlaceAutocompleteResponse.parseAutocompleteResult(response);
@@ -44,7 +99,7 @@ class _ChooseAddressPageState extends State<ChooseAddressPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Chọn địa chỉ',
+          'Chọn địa chỉ giao hàng',
           style: TextStyle(fontSize: 20),
         ),
       ),
@@ -60,7 +115,7 @@ class _ChooseAddressPageState extends State<ChooseAddressPage> {
                   },
                   textInputAction: TextInputAction.search,
                   decoration: InputDecoration(
-                    hintText: 'Tìm địa chỉ',
+                    hintText: 'Vui lòng nhập địa chỉ',
                     prefixIcon: const Padding(
                       padding: EdgeInsets.symmetric(vertical: 12),
                       child: Icon(Icons.search, color: AppColors.primaryColor),
@@ -72,6 +127,15 @@ class _ChooseAddressPageState extends State<ChooseAddressPage> {
 
                       borderSide:
                           const BorderSide(color: AppColors.primaryColor), //
+                    ),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        _addressController.clear();
+                        placeAutoComplete('');
+                        // setState(() {});
+                      },
+                      icon: const Icon(Icons.clear,
+                          size: 20, color: AppColors.primaryColor),
                     ),
                   ) // Chọn màu nền ở đây
 
@@ -87,7 +151,7 @@ class _ChooseAddressPageState extends State<ChooseAddressPage> {
               padding: const EdgeInsets.all(12),
               child: ElevatedButton.icon(
                 onPressed: () {
-                  // placeAutoComplete('Dubai');
+                  _getMyAddressName();
                 },
                 icon: const Icon(Icons.my_location),
                 label: const Text('Sử dụng vị trí hiện tại của tôi'),
@@ -119,7 +183,8 @@ class _ChooseAddressPageState extends State<ChooseAddressPage> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => DeliveryAddressPage(
-                                  location:
+                                  placeId: placePredictions[index].placeId!,
+                                  address:
                                       placePredictions[index].description!)),
                         );
                       },

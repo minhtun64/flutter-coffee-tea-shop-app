@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
 
+import '../../utils/helpers/location_helper.dart';
 import '../../values/app_colors.dart';
-import '../choose_address/choose_address_screen.dart';
 import '../delivery_store/delivery_store_screen.dart';
+import '../delivery_store/widgets/custom_button.dart';
 import 'widgets/delivery_address_step.dart';
 
 class DeliveryAddressPage extends StatefulWidget {
-  const DeliveryAddressPage({Key? key, required this.location})
+  const DeliveryAddressPage(
+      {Key? key,
+      this.placeId,
+      required this.address,
+      this.deliveryMyLat,
+      this.deliveryMyLng})
       : super(key: key);
 
-  final String location;
+  final String? placeId;
+  final String address;
+  final double? deliveryMyLat;
+  final double? deliveryMyLng;
 
   @override
   _DeliveryAddressPageState createState() => _DeliveryAddressPageState();
@@ -25,11 +33,34 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
   double deliveryLng = 0.0;
 
   bool isDefaultAddress = false;
-  bool isContinueEnabled = true;
+
+  void getCoordinatesFromAddress() async {
+    // Map<String, double> coordinates =
+    //     await LocationHelper.getLatLngFromAddress(widget.location);
+    final coordinates =
+        await LocationHelper.getAddressCoordinates(widget.placeId!);
+    if (coordinates != null) {
+      print(coordinates['latitude']!);
+      print(coordinates['longitude']!);
+      setState(() {
+        deliveryLat = coordinates['latitude']!;
+        deliveryLng = coordinates['longitude']!;
+      });
+    }
+  }
 
   @override
   void initState() {
-    _addressController.text = widget.location;
+    _addressController.text = widget.address;
+    if (widget.deliveryMyLat != null && widget.deliveryMyLng != null) {
+      setState(() {
+        deliveryLat = widget.deliveryMyLat!;
+        deliveryLng = widget.deliveryMyLng!;
+      });
+    } else {
+      // Nếu không có giá trị, thực hiện lấy toạ độ từ địa chỉ
+      getCoordinatesFromAddress();
+    }
     super.initState();
   }
 
@@ -65,57 +96,21 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
               const SizedBox(height: 4),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ChooseAddressPage()),
-                  );
+                  Navigator.of(context).pop();
                 },
                 child: TextField(
                   enabled: false,
                   controller: _addressController,
-                  // autofocus: true,
-                  onEditingComplete: () {
-                    locationFromAddress(_addressController.text)
-                        .then((locations) {
-                      var latitude = 0.0;
-                      var longitude = 0.0;
-                      if (locations.isNotEmpty) {
-                        latitude = locations[0].latitude;
-                        longitude = locations[0].longitude;
-                      }
-                      setState(() {
-                        deliveryLat = latitude;
-                        deliveryLng = longitude;
-                      });
-                    });
-                  },
-                  onChanged: (value) {
-                    setState(() {
-                      isContinueEnabled = _addressController.text.isNotEmpty;
-                    });
-                  },
+                  maxLines: 1,
                   style: const TextStyle(
+                    overflow: TextOverflow.ellipsis,
                     color: Colors.black,
                     fontWeight: FontWeight.w500,
                   ),
                   decoration: InputDecoration(
-                    hintText: 'Tên đường, phường/xã, quận/huyện, tỉnh thành',
-                    hintStyle: const TextStyle(
-                        fontWeight: FontWeight.normal, color: Colors.grey),
-                    // suffixIcon: IconButton(
-                    //   onPressed: () {
-                    //     _addressController.clear();
-                    //   },
-                    //   icon: const Icon(Icons.clear, size: 16),
-                    // ),
                     prefixIcon: const Icon(Icons.location_on),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
-                      borderSide: const BorderSide(
-                          color: AppColors.primaryColor,
-                          width: 0.0,
-                          strokeAlign: 2),
                     ),
                   ),
                 ),
@@ -149,42 +144,22 @@ class _DeliveryAddressPageState extends State<DeliveryAddressPage> {
           ),
         ),
       ),
-      floatingActionButton: ElevatedButton(
-        style: ButtonStyle(
-          minimumSize: MaterialStateProperty.all(
-              Size(MediaQuery.of(context).size.width * 0.9, 50)),
-          backgroundColor: isContinueEnabled
-              ? MaterialStateProperty.all(AppColors.primaryColor)
-              : MaterialStateProperty.all(Colors.grey[300]),
-          shape: MaterialStateProperty.all(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
+      floatingActionButton: CustomButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => DeliveryStorePage(
+                deliveryLat: deliveryLat,
+                deliveryLng: deliveryLng,
+                // address: _addressController.text,
+                // name: _nameController.text,
+                // note: _noteController.text,
+              ),
             ),
-          ),
-        ),
-        onPressed: isContinueEnabled
-            ? () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => DeliveryStorePage(
-                      deliveryLat: deliveryLat,
-                      deliveryLng: deliveryLng,
-                      // address: _addressController.text,
-                      // name: _nameController.text,
-                      // note: _noteController.text,
-                    ),
-                  ),
-                );
-              }
-            : null, // Nếu nút Tiếp tục không được kích hoạt, đặt giá trị onPressed là null
-        child: Text(
-          'Tiếp tục',
-          style: TextStyle(
-            color: isContinueEnabled ? Colors.white : Colors.grey[600],
-            fontSize: 18,
-          ),
-        ),
+          );
+        },
+        text: 'Tiếp tục',
       ),
     );
   }
