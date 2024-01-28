@@ -42,6 +42,22 @@ class CartQuantityButton extends StatelessWidget {
           deleteQuantity: () {
             cart.deleteQuantity(cartItem.id!);
             // cart.removeTotalPrice(cartItem.productPrice!);
+            dbHelper
+                .updateQuantity(CartItem(
+              id: cartItem.id!,
+              productId: cartItem.productId,
+              productName: cartItem.productName,
+              size: cartItem.size,
+              initialPrice: cartItem.initialPrice,
+              productPrice: cartItem.productPrice,
+              quantity: ValueNotifier(cartItem.quantity!.value),
+              image: cartItem.image,
+            ))
+                .then((value) {
+              // setState(() {
+              //   cart.addTotalPrice(cartItem.productPrice!);
+              // });
+            });
           },
           text: val.toString(),
         );

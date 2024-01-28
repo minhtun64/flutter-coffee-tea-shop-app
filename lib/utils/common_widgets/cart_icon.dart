@@ -6,11 +6,13 @@ import '../../providers/cart_provider.dart';
 import '../../screens/cart/cart_screen.dart';
 
 class CartIcon extends StatelessWidget {
-  const CartIcon({super.key});
-
+  // final int counter;
+  const CartIcon({
+    super.key,
+  });
   @override
   Widget build(BuildContext context) {
-    final cartProvider = Provider.of<CartProvider>(context);
+    final cartProvider = Provider.of<CartProvider>(context, listen: true);
 
     if (cartProvider.getCounter() > 0) {
       return badges.Badge(

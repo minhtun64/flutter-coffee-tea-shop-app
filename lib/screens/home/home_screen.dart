@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../providers/cart_provider.dart';
 import '../../utils/common_widgets/cart_icon.dart';
 import '../../values/app_colors.dart';
 import '../../values/app_theme.dart';
@@ -8,8 +10,29 @@ import 'widgets/home_options.dart';
 import 'widgets/home_slider_widget.dart';
 import 'widgets/home_special_offer.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  late CartProvider _cartProvider;
+
+  @override
+  void initState() {
+    super.initState();
+    _cartProvider = Provider.of<CartProvider>(context, listen: false);
+    _initializeData();
+  }
+
+  Future<void> _initializeData() async {
+    await _cartProvider.getData();
+    setState(() {
+      // Force a rebuild after data is loaded
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +63,15 @@ class HomePage extends StatelessWidget {
                 ),
               ],
             ),
+            // CartIcon(counter: cartProvider.getCounter()),
             const CartIcon(),
+
+            // FutureBuilder<List<CartItem>>(
+            //     future: _cartProvider.getData(),
+            //     builder: (context, snapshot) {
+            //       return CartIcon(counter: _cartProvider.getCounter());
+            //       // }
+            //     })
           ],
         ),
         // s: 8,
