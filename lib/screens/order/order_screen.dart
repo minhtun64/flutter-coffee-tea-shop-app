@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../models/cart_model.dart';
 import '../../models/product_item_model.dart';
+import '../../providers/cart_provider.dart';
 import '../../utils/common_widgets/cart_icon.dart';
 import '../../utils/helpers/removeDiacritics.dart';
 import '../../values/app_colors.dart';
